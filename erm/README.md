@@ -7,7 +7,8 @@
 * It has been verified to produce byte-exact round-trip results when
   decompiling and then recompiling the shipping Danish-language files.
 * The **ERM** utility is built from a single file ([`erm.c`](erm.c)) and
-  is written in strict ANSI C89.  It also works with the excellent
+  is written in strict ANSI C89 for maximum compatibility.
+* It also works (and can be debugged) using the excellent
   [SoftIntegration Ch](https://softintegration.com/) C interpreter.
 
 ## Notes
