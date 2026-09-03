@@ -16,45 +16,17 @@
 
 /******************************************************************************/
 
+#include "common.h"
+
+/******************************************************************************/
+
 #ifdef VERSION
 # undef VERSION
 #endif
 
 /******************************************************************************/
 
-#define VERSION "0.1"
-
-/******************************************************************************/
-
-#ifndef EXIT_SUCCESS
-# define EXIT_SUCCESS 0
-#endif
-
-/******************************************************************************/
-
-#ifndef EXIT_FAILURE
-# define EXIT_FAILURE 1
-#endif
-
-/******************************************************************************/
-
-#ifdef FREE
-# undef FREE
-#endif
-
-/******************************************************************************/
-
-static const int never = 0;
-
-/******************************************************************************/
-
-#define FREE(p)   \
-  do              \
-    {             \
-      free ((p)); \
-      (p) = NULL; \
-    }             \
-  while (never)
+#define VERSION "1.0"
 
 /******************************************************************************/
 
@@ -183,97 +155,6 @@ expand (const char * src)
 
 /******************************************************************************/
 
-#define TRIM_BUFSIZE 256
-#define TRIM_RING 3 /* max reentrancy depth, use calls +1 */
-
-static char *
-sqz_str (const char * const s)
-{
-  static char bufs [TRIM_RING] [TRIM_BUFSIZE];
-  static int idx = 0;
-
-  const char * p;
-  const char * q;
-  const char * last;
-
-  char * buf;
-  char * d;
-
-  buf = bufs [idx];
-  idx++;
-
-  if (idx >= TRIM_RING)
-    {
-      idx = 0;
-    }
-
-  if (s == 0)
-    {
-      buf [0] = '\0';
-
-      return buf;
-    }
-
-  p = s;
-
-  while (* p == ' ' || * p == '\t' || * p == '\r' || * p == '\n')
-    {
-      p++;
-    }
-
-  if (* p == '\0')
-    {
-      buf [0] = '\0';
-
-      return buf;
-    }
-
-  q = p;
-  last = p;
-
-  while (* q != '\0')
-    {
-      if (* q != ' ' && * q != '\t' && * q != '\r' && * q != '\n')
-        {
-          last = q;
-        }
-
-      q++;
-    }
-
-  d = buf;
-
-  {
-    int in_ws = 0;
-
-    while (p <= last && d < buf + (TRIM_BUFSIZE - 1))
-      {
-        if (* p == ' ' || * p == '\t' || * p == '\r' || * p == '\n')
-          {
-            in_ws = 1;
-          }
-        else
-          {
-            if (in_ws)
-              {
-                * d++ = ' ';
-                in_ws = 0;
-              }
-
-            * d++ = * p;
-          }
-
-        p++;
-      }
-  }
-
-  * d = '\0';
-
-  return buf;
-}
-
-/******************************************************************************/
-
 static void
 usage (const char * progname)
 {
@@ -316,7 +197,7 @@ main (int argc, char * * argv)
 
   if (! fp)
     {
-      (void)fprintf (stderr, "Cannot open file: %s\n", argv [1]);
+      (void)fprintf (stderr, "ERROR: Cannot open file: %s\n", argv [1]);
 
       return EXIT_FAILURE;
     }
@@ -364,7 +245,7 @@ main (int argc, char * * argv)
 
   if (ferror (fp))
     {
-      (void)fprintf (stderr, "Read error while scanning macros\n");
+      (void)fprintf (stderr, "ERROR: Read error while scanning macros\n");
       (void)fclose (fp);
 
       return EXIT_FAILURE;
@@ -421,7 +302,7 @@ main (int argc, char * * argv)
 
   if (ferror (fp))
     {
-      (void)fprintf (stderr, "Read error while scanning entries\n");
+      (void)fprintf (stderr, "ERROR: Read error while scanning entries\n");
       (void)fclose (fp);
 
       return EXIT_FAILURE;

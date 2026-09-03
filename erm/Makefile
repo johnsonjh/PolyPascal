@@ -21,25 +21,36 @@ build: all
 
 ################################################################################
 
-erm: erm.c
+common.o: common.c
 	@eval echo \
-		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" \
-		-o ./$@ ./erm.c "$${LDFLAGS:-$(XLDFLAGS)}" \
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" -I. \
+		-c -o ./$@ ./common.c "$${LDFLAGS:-$(XLDFLAGS)}" \
 		2> /dev/null || :
 	@eval \
-		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" \
-		-o ./$@ ./erm.c "$${LDFLAGS:-$(XLDFLAGS)}"
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" -I. \
+		-c -o ./$@ ./common.c "$${LDFLAGS:-$(XLDFLAGS)}"
 
 ################################################################################
 
-ermexpand: ermexpand.c
+erm: erm.c common.h common.o
 	@eval echo \
-		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" \
-		-o ./$@ ./ermexpand.c "$${LDFLAGS:-$(XLDFLAGS)}" \
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" -I. \
+		-o ./$@ ./common.o ./erm.c "$${LDFLAGS:-$(XLDFLAGS)}" \
 		2> /dev/null || :
 	@eval \
-		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" \
-		-o ./$@ ./ermexpand.c "$${LDFLAGS:-$(XLDFLAGS)}"
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" -I. \
+		-o ./$@ ./common.o ./erm.c "$${LDFLAGS:-$(XLDFLAGS)}"
+
+################################################################################
+
+ermexpand: ermexpand.c common.h common.o
+	@eval echo \
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" -I. \
+		-o ./$@ ./common.o ./ermexpand.c "$${LDFLAGS:-$(XLDFLAGS)}" \
+		2> /dev/null || :
+	@eval \
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" -I. \
+		-o ./$@ ./common.o ./ermexpand.c "$${LDFLAGS:-$(XLDFLAGS)}"
 
 ################################################################################
 
@@ -53,7 +64,7 @@ strip:
 
 clean:
 	rm -f ./erm ./erm.exe ./erm.o ./a.exe ./a.out ./core ./*.core ./core-*
-	rm -f ./ermexpand ./ermexpand.exe ./ermexpand.o
+	rm -f ./ermexpand ./ermexpand.exe ./ermexpand.o ./common.o
 
 ################################################################################
 
