@@ -13,7 +13,7 @@
 
 ## Notes
 
-* [`.stash/310.TXT`](.stash/310.TXT) file is an English-language
+* The [`.stash/310.TXT`](.stash/310.TXT) file is an English-language
   PolyPascal-80 V3.10 error message file that has been decompiled to the
   same format as that which **ERM** produces.
 * This file is for **REFERENCE ONLY**.  It is **NOT** compatible with
