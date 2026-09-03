@@ -294,7 +294,7 @@ modified  since it was loaded or last saved,  PolyPascal asks whether it
 should be  saved before  PolyPascal is exited.  If the answer is no, the
 changes that were made are lost.
 
-PolyPascal  can  later be  warm-started  with the command line *'PPAS '.
+PolyPascal  can  later be  warm-started  with the command line 'PPAS *'.
 This  does, however,  require  that  no programs  have  been  run in the
 meantime that have overwritten parts of the workspace.
 
