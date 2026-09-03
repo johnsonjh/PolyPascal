@@ -47,4 +47,4 @@
 
 * When complete, a single translated error message file can be used for both
   the CP/M-86 and DOS versions (as we do the for the
-  [PPAS.HLP.en](../PPAS.HLP.en) help text).
+  [`PPAS.HLP.en`](../PPAS.HLP.en) help text).
