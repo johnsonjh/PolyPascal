@@ -85,18 +85,20 @@
 
 ### Help text
 
-* The [`PPAS.HLP.en`](PPAS.HLP.en) is an English help file
-  appropriate for both versions.
+* The [`PPAS.HLP.en`](PPAS.HLP.en) file is an English
+  help translation appropriate for both versions.
   * For DOS, overwrite `PPAS.HLP` with `PPAS.HLP.en`.
   * For CP/M-86, overwrite both `PPASRC.HLP` and `PPAS.HLP` with
     `PPAS.HLP.en`.
 
 ### Error messages
 
-* Error messages have not been translated yet, but the work is
-  underway.
+* The [`PPAS.ERM.en`](PPAS.ERM.en) file is an error message
+  translation appropriate for both versions.
+  * For both DOS and CP/M-86, overwrite `PPAS.ERM` with
+    `PPAS.ERM.en`.
 * See the [`erm/`](erm) directory for more details and current
-  status.
+  translation status.
 
 ## License
 

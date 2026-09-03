@@ -45,6 +45,6 @@
 
 ## Translation
 
-* When complete, a single translated error message file can be used for both
-  the CP/M-86 and DOS versions (as we do the for the
-  [`PPAS.HLP.en`](../PPAS.HLP.en) help text).
+* The [`311.DK`](311.DK) file is the unpacked original Danish, and
+  the [`311.EN`](311.EN) file is the unpacked English translation used to
+  create the [`../PPAS.ERM.en`](../PPAS.ERM.en) error message file using **ERM**.
