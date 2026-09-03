@@ -1,0 +1,16 @@
+# .gitignore
+# Copyright (c) 2026 Jeffrey H. Johnson <johnsonjh.dev@gmail.com>
+# SPDX-License-Identifier: MIT-0
+# scspell-id: d994ddce-a777-11f1-91f8-80ee73e9b8e7
+/*~
+*.core
+core
+core-*
+/erm/a.exe
+/erm/a.out
+/erm/*.bak
+/erm/compile_commands.json
+/erm/erm
+/erm/log.pvs
+/erm/pvsreport/
+/erm/*.txt

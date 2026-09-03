@@ -93,8 +93,10 @@
 
 ### Error messages
 
-* Error messages are stored in the `PPAS.ERM` files and are not yet
-  translated.
+* Error messages have not been translated yet, but the work is
+  underway.
+* See the [`era/`](era) directory for more details and current
+  status.
 
 ## License
 
