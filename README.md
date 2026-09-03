@@ -18,9 +18,9 @@
 ## Configuration
 
 * Use `emu2-cpm86` (available from
-  [GitLab](https://gitlab.com/johnsonjh/emu2-cpm86))
+  [GitLab](https://gitlab.com/johnsonjh/emu2-cpm86)
   or [GitHub](https://github.com/johnsonjh/emu2-cpm86))
-  to run the `INSTALL.CMD` (or `INSTALL.COM`) programs to configure
+  to run the `INSTALL.CMD` and `INSTALL.COM` programs to configure
   PolyPascal-86 for your system:
 
   ```
@@ -73,13 +73,13 @@
 * Most users will want to use `A` (PC-DOS), `B` (CP/M-86), or `C` (ANSI).
 
 * Repeat the above process to configure all three executables
-  (`CMD` or `COM`) in each version:
+  (`CMD` and `COM`) in each version:
 
-  |            Executable | Description        |
-  |----------------------:|:-------------------|
-  | `PPAS.COM`/`PPAS.CMD` | Standard version   |
-  | `PPBS.COM`/`PPBS.CMD` | BCD version        |
-  | `PP87.COM`/`PP86.CMD` | 8087 NDP version   |
+  |                        Executable | Description         |
+  |----------------------------------:|:--------------------|
+  | `PPAS.COM`&nbsp;/&nbsp;`PPAS.CMD` | Standard versions   |
+  | `PPBS.COM`&nbsp;/&nbsp;`PPBS.CMD` | BCD versions        |
+  | `PP87.COM`&nbsp;/&nbsp;`PP86.CMD` | 8087 NDP versions   |
 
 ## Translation
 
