@@ -18,8 +18,16 @@
 # define EXIT_SUCCESS 0
 #endif
 
+/******************************************************************************/
+
 #ifndef EXIT_FAILURE
 # define EXIT_FAILURE 1
+#endif
+
+/******************************************************************************/
+
+#ifdef FREE
+# undef FREE
 #endif
 
 /******************************************************************************/
@@ -58,7 +66,7 @@ unpack (const char * in_filename, const char * out_filename)
 
   fin = fopen (in_filename, "rb");
 
-  if (!fin)
+  if (! fin)
     {
       perror ("Error opening input file");
 
@@ -67,7 +75,7 @@ unpack (const char * in_filename, const char * out_filename)
 
   fout = fopen (out_filename, "w");
 
-  if (!fout)
+  if (! fout)
     {
       perror ("Error opening output file");
       (void)fclose (fin);
@@ -81,11 +89,11 @@ unpack (const char * in_filename, const char * out_filename)
 
   buffer = (unsigned char *)malloc ((size_t)size);
 
-  if (!buffer)
+  if (! buffer)
     {
-      (void)fprintf (stderr, "Memory allocation failed\n");
+      (void)fprintf (stderr, "Memory allocation failed!\n");
 
-      exit (EXIT_FAILURE);
+      abort ();
     }
 
   if (size > 0)
@@ -181,7 +189,7 @@ pack (const char * in_filename, const char * out_filename)
 
   fin = fopen (in_filename, "r");
 
-  if (!fin)
+  if (! fin)
     {
       perror ("Error opening input file");
 
@@ -190,7 +198,7 @@ pack (const char * in_filename, const char * out_filename)
 
   fout = fopen (out_filename, "wb");
 
-  if (!fout)
+  if (! fout)
     {
       perror ("Error opening output file");
       (void)fclose (fin);
@@ -218,9 +226,9 @@ pack (const char * in_filename, const char * out_filename)
         }
 
       first_quote = strchr (line, '"');
-      last_quote = strrchr (line, '"');
+      last_quote  = strrchr (line, '"');
 
-      if (!first_quote || !last_quote || first_quote == last_quote)
+      if (! first_quote || ! last_quote || first_quote == last_quote)
         {
           (void)fprintf (stderr,
                          "WARN: invalid line format (skipping): %s\n", line);
@@ -229,7 +237,7 @@ pack (const char * in_filename, const char * out_filename)
         }
 
       * first_quote = '\0';
-      * last_quote = '\0';
+      * last_quote  = '\0';
 
       code = line;
       str = first_quote + 1;
@@ -275,7 +283,7 @@ pack (const char * in_filename, const char * out_filename)
         {
           int num = atoi (code);
 
-          if (!first_error_written)
+          if (! first_error_written)
             {
               first_error_written = 1;
             }
@@ -331,7 +339,7 @@ main (int argc, const char * const argv [])
 {
   int do_unpack = 0;
   int do_pack = 0;
-  const char * in_file = NULL;
+  const char * in_file  = NULL;
   const char * out_file = NULL;
   int i;
 
@@ -395,7 +403,7 @@ main (int argc, const char * const argv [])
         }
     }
 
-  if (!do_unpack && !do_pack)
+  if (! do_unpack && ! do_pack)
     {
       (void)fprintf (stderr, "Error: Must specify either -u or -p\n");
       usage (argv [0]);
@@ -411,7 +419,7 @@ main (int argc, const char * const argv [])
       return EXIT_FAILURE;
     }
 
-  if (!out_file)
+  if (! out_file)
     {
       (void)fprintf (stderr, "Error: Output file (-o) must be specified\n");
       usage (argv [0]);
