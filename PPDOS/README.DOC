@@ -1,0 +1,273 @@
+
+
+              PolyPascal Supplerende Dokumentation
+                til PolyPascal-86 V3.11 (MS-DOS)
+
+                       Copyright (C) 1986
+                   PolyTech International A/S
+
+
+
+Tak fordi De har k|bt PolyPascal systemet.  Vi er sikre p}, at De 
+vil  finde,  at PolyPascal er et kvalitetsprodukt,  der til fulde 
+indfrier Deres forventninger.  F|r De g}r videre,  anmoder vi om, 
+at De l{ser brugerlicensaftalen, der f|lger med systemet, samt at 
+De udfylder og indsender registreringsformularen.
+
+
+1. Distributionsdisketten
+-------------------------
+
+Distributionsdisketten indeholder de f|lgende filer:
+
+README.DOC    Den fil, De for nuv{rende l{ser.
+
+PPAS.COM      Denne  fil  indeholder selve  PolyPascal  systemet, 
+              dvs.   run-time biblioteket,  den  sk{rmorienterede 
+              editor, og Pascal compileren.
+
+PPAS.HLP      Denne fil indeholder de hj{lptekster,  der vises af 
+              HELP kommandoen og ^J kommandoen i editoren.
+
+PPAS.ERM      Denne fil indeholder de fejlmeddelelser, der bruges 
+              af compileren, n}r den rapporterer fejl under over-
+              s{ttelser.
+
+PPBS.COM      Business versionen af PolyPascal. Business version-
+              en anvender 10-byte reelle tal i BCD format,  hvil-
+              ket  giver 18 betydende cifre.  Envidere indeholder 
+              denne  version er r{kke  avancerede  formatterings-
+              funktioner til tal og strenge.
+
+PP87.COM      8087 versionen af PolyPascal.  Denne version anven-
+              der 8087 co-processoren til floating point kalkula-
+              tioner,  men  er ellers fuldst{ndig magen til stan-
+              dardversionen.
+
+INSTALL.COM   PolyPascal  installationsprogram.   Dette   program 
+              bruges  til at indl{gge systemafh{ngige parametre i 
+              PolyPascal.  Hvis PolyPascal er leveret som en uin-
+              stalleret  version,  skal dette program  k|res  f|r 
+              systemet tages i brug. INSTALL kan desuden anvendes 
+              til  at rette enkeltparametre i en  pr{-installeret 
+              version.  INSTALL  er selvforklarende.  Bem{rk,  at 
+              Business versionen og 8087 versionen altid  distri-
+              bueres som uinstallerede versioner, og at de derfor 
+              m} installeres f|rend de kan anvendes.
+
+INSTALL.TRM   INSTALL  programmets  datafiler.  Disse  filer  kan 
+INSTALL.DAT   indeholde installationsdata for op til 40  forskel-
+              lige computersystemer.
+
+INSTALL.DOC   Denne tekstfil indeholder en detaljeret beskrivelse 
+              af de installerbare parametre i PolyPascal. Teksten 
+              er p} engelsk.
+
+INSTALL.PAS   Kildeteksten til INSTALL programmet.  Hele  INSTALL 
+              er skrevet i PolyPascal.
+
+CALC.PAS      Demstrationsprogram i kildetekstform. Dette program 
+              opf|rer  sig som en lommeregner:  Man kan  indtaste 
+              udtryk, hvorefter programmet udregner deres v{rdi.
+
+HEXDUMP.PAS   Demonstrationsprogram i kildetekstform. HEXDUMP kan 
+              udskrive  en  hex-listing af fil til en  anden  fil 
+              eller til printeren.
+
+PRIMES.PAS    Demonstrationsprogram i kildetekstform.  PRIMES be-
+              regner alle primtallene mellem 1 og 30000.
+
+QSORT.PAS     Demonstrationsprogram i kildetekstform. QSORT gene-
+              rerer en r{kke tilf{ldige tal og sorterer dem  der-
+              efter  ved  hj{lp af den meget effektive  quicksort 
+              algoritme.
+
+LIST.PAS      Demonstrationsprogram  i kildetekstform.  LIST  kan 
+              udskrive listninger af alle slags  tekstfiler,  med 
+              overskrifter,  linienumre, og fuld kontrol af side-
+              l{ngde, liniel{ngde, venstremargin og bundmargin.
+
+CROSSREF.PAS  Demonstrationsprogram  i  kildetekstform.  CROSSREF 
+              kan udskrive en listing med linienumre og en kryds-
+              reference listing af et PolyPascal program.
+
+DATMAN.PAS    Disse filer udg|r PolyFile systemet. PolyFile er en 
+NPFKEY.PAS    r{kke procedurer og funktioner,  der giver brugeren 
+ADDKEY.PAS    mulighed  for  at  anvende indexerede  filer  (ISAM 
+DELKEY.PAS    filer) i PolyPascal. PolyFile er skrevet i PolyPas-
+              cal.  Systemet er beskrevet i PolyFile referencema-
+              nualen, der indg}r i PolyPascal dokumentationen.
+
+DATABASE.PAS  Demonstrationsprogram  i  kildetekstform.  DATABASE 
+              viser hvorledes PolyFile rutinerne kan anvendes til 
+              at opbygge en simpel kundedatabase.
+
+MSLIB.PAS     Bibliotek  med subrutiner til kald af MS-DOS  funk-
+              tioner.  Denne include-fil indeholder en r{kke sub-
+              rutiner  til kald af MS-DOS  funktioner,  der  ikke 
+              umiddelbart er supporteret af PolyPascal.
+
+Vi anbefaler, at De, f|r De begynder at anvende PolyPascal syste-
+met,  tager en sikkerhedskopi af denne diskette.  N}r De vil lave 
+en PolyPascal arbejdsdiskette,  beh|ver De blot kopiere PPAS.COM, 
+PPAS.HLP  og  PPAS.ERM over p} en blank diskette,  sammen med  de 
+systemprogrammer,  De eventuelt f}r brug for (f.eks. COMMAND.COM, 
+FORMAT.COM og CHKDSK.COM).  Hvis De har meget lidt plads p} Deres 
+disketter,  kan De eventuelt udelade PPAS.HLP og PPAS.ERM,  men i 
+s} tilf{lde virker HELP kommandoen ikke,  og compileren udskriver 
+kun fejlnumre og ikke fejlmeddelelser.
+
+
+2. PolyPascal sammenlignet med COMPAS Pascal
+--------------------------------------------
+
+PolyPascal  hed tidligere COMPAS Pascal,  og PolyPascal V3.11  er 
+en direkte videreudvikling af COMPAS Pascal V3.07.  PolyPascal er 
+fuldt  ud kildetekstkompatibel med COMPAS Pascal,  bortset fra de 
+f|lgende mindre forskelle (kapitelreferencerne henviser til Poly-
+Pascal Programmeringsmanualen):
+
+o   PolyPascal anvender MS-DOS 2.0 kompatible systemkald til alle 
+    fil I/O operationer, og programmer kan derfor udnytte facili-
+    teter som underbiblioteker og I/O redirection. N}r man anven-
+    der  MS-DOS 2.0 fil I/O systemkald er det  vigtigt,  at  alle 
+    filer lukkes, ogs} selvom der kun er l{st fra dem. Hvis filer 
+    f}r  lov til at st} }bne,  havner MS-DOS f|r eller siden i en 
+    overflow  tilstand.  Det  maksimale antal filer der kan  v{re 
+    }bne p} samme tid kontrolleres gennem 'files=xx' parametren i 
+    MS-DOS CONFIG.SYS filen.  P} grund af en fejl tillader MS-DOS 
+    imidlertid aldrig mere end 16 filer,  selvom CONFIG.SYS angi-
+    ver en h|jere gr{nse.  Kapitel 13.1 indeholder yderligere in-
+    formation.
+
+o   TEXT identifieren er et reserveret ord i PolyPascal.
+
+o   PolyPascal behandler logiske enheder (CON:,  LST:,  etc.) an-
+    derledes end COMPAS Pascal.  Specielt g{lder der, at "eof" og 
+    "eoln"  opf|rer  sig anderledes,  n}r de anvendes p}  logiske 
+    enheder.  I mods{tning til COMPAS Pascal er der i  PolyPascal 
+    ikke forskel p} behandlingen af logiske enheder og diskfiler. 
+    Kapitel 13.3 indeholder yderligere information.
+
+o   Standardprocedurerne  "blockread" og "blockwrite" kr{ver fire 
+    parametre i stedet for tre.  Den fjerde parameter  returnerer 
+    det  antal records,  der faktisk blev overf|rt.  Kapitel 13.4 
+    indeholder yderligere information.
+
+o   PolyPascal  }bner og lukker overlay-filer hvergang der  l{ses 
+    fra  dem.  Som  programm|r beh|ver man  derfor  ikke  l{ngere 
+    bekymre  sig om at lukke overlay-filer.  Y compilerdirektivet 
+    er afskaffet. I stedet kan standardproceduren "ovpath" bruges 
+    til at angive hvilket underbibliotek der indeholder  overlay-
+    filerne. Kapitel 15.9 indeholder yderligere information.
+
+o   Standardprocedurerne "chain" og "execute" s{tter ikke l{ngere 
+    et flag i adresse $80 i kodesegmentet.  Kapitel 20 indeholder 
+    yderligere informationer.
+
+o   Det interne format af filvariable (FIB'er) er {ndret. Kapitel 
+    23.1.5 indeholder yderligere informationer.
+
+
+3. Kommandolinieparametre
+-------------------------
+
+PolyPascal-86  V3.11 indeholder to  nye  standardfunktioner,  der 
+giver adgang til kommandolinieparametre:
+
+argcnt       Returnerer antallet af argumenter p} kommandolinien, 
+             dvs.  antallet af parametre der efterfulgte program-
+             navnet. Resultatet er af typen integer.
+
+argstr(n)    Returnerer en streng,  der indeholder den n'te  kom-
+             mandolinieparameter.  n  er et udtryk af typen inte-
+             ger,  og 1 udpeger det f|rste element. Hvis n er nul 
+             eller st|rre end antallet af parametre returneres en 
+             tom streng.
+
+Hvis man,  for eksempel,  starter et program ved navn  "DUMP.COM" 
+med kommandolinien:
+
+                     DUMP CROSSREF.PAS CON:
+
+vil  argcnt returnere 2,  argstr(1) returnere "CROSSREF.PAS",  og 
+argstr(2) returnere "CON:".  Bem{rk,  at det kun er blanktegn  og 
+TAB-tegn der g{lder som parameteradskillere.
+
+Selvom  det ikke fremg}r af manualen tillader RUN  kommandoen  at 
+man  angiver kommandolinieparametre n}r man udf|rer  et  program. 
+Alle  de tegn,  der efterf|lger RUN kommandoordet,  kopieres  til 
+programmets kommandoliniebuffer f|rend det startes.
+
+
+4. Brugerdefinerede fejlbehandlingsrutiner
+------------------------------------------
+
+I  PolyPascal-86 V3.11 kan man skrive sin egen fejlbehandlingsru-
+tine,  der  bliver kaldt i tilf{lde af en I/O eller  k|rselsfejl. 
+Rutinen skal have den f|lgende overskrift:
+
+             PROCEDURE error(errno,errofs: integer);
+
+Navnet  p} proceduren og parametrene er ligegyldigt,  blot det er 
+en procedure med to value-parametre af typen integer.
+
+V{rdien der overf|res i "errno" er fejltypen og fejlnummeret. Den 
+mest betydende byte,  dvs.  "hi(errno)", indeholder fejltypen, og 
+den mindst betydende byte,  dvs. "lo(errno)", indeholder fejlnum-
+meret  (se Appendix F og G i PolyPascal  Programmeringsmanualen). 
+F|lgende fejltyper er definerede:
+
+    0   Programafbrydelse (Ctrl-C)
+    1   I/O fejl.
+    2   K|rselsfejl.
+
+Den  mindst  betydende byte af "errno" er altid 1 i  tilf{lde  af 
+programafbrydelse (Ctrl-C).  "errofs" indeholder fejlens  offset-
+adresse i programkoden.
+
+En fejlbehandlingsrutine aktiveres ved at s{tte standardvariablen 
+"ehofs" lig med dens offset-adresse, f.eks. "ehofs:=ofs(error)".
+
+En typisk fejlbehandlingsrutine lukker alle }bne filer, udskriver 
+en fejlmeddelelse,  og stopper programmet ved et kald til  "halt" 
+standardproceduren.  Hvis  en  fejlbehandlingsrutine  returnerer, 
+dvs.  hvis den ikke kalder "halt",  eller hvis der sker en fejl i 
+den, udskriver PolyPascal selv en fejlmeddelelse og stopper prog-
+rammet.
+
+
+5. Programafbrydning under ind- og udl{sning
+--------------------------------------------
+
+PolyPascal-86 V3.11 har,  i till{g til C  compilerdirektivet,  en 
+pr{defineret  variabel ved navn "cbreak",  der kan s{ttes lig med 
+"true"  (sand)  eller "false" (falsk).  N}r "cbreak"  er  "true", 
+virker Ctrl-S og Ctrl-C funktionerne som beskrevet i kapitel 17.1 
+i PolyPascal Programmeringsmanualen. N}r "cbreak" er "false", har 
+Ctrl-S  og Ctrl-C ingen speciel betydning.  C  compilerdirektivet 
+bruges  til  at styre "cbreak" variablens v{rdi ved start  af  et 
+program.  "C+"  betyder "true",  og "C-"  betyder  "false".  "C+" 
+v{lges automatisk ved start af compileren.
+
+
+6. Forslag og bem{rkninger
+--------------------------
+
+Hvis  De har nogle bem{rkninger til PolyPascal systemet  og/eller 
+dets dokumentation,  f.eks. forslag til nye faciliteter De f|ler, 
+der er behov for, eller fejl, De eventuelt m}tte have opdaget, er 
+De naturligvis meget velkommen til at kontakte os.  Vores adresse 
+er:
+
+    PolyTech International A/S
+    Aldersrogade 3A
+    2100 K|benhavn \
+
+    Telefon: (01) 20 45 22
+    Telefax: (01) 20 97 97
+    Telex: 27439 poly dk
+
+
+Held og lykke med programmeringen!
+

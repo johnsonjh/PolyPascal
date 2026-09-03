@@ -1,0 +1,288 @@
+%*+-------------------------------------+-----------------+---------------------+
+!           Cursorflytning            !      Blok       !       Diverse       !
++-------------------------------------+-----------------+---------------------+
+! ^S    Tegn venst  ^D    Tegn h|jre  ! ^K^B  Start     ! ^J    Hj{lp         !
+! ^A    Ord venst   ^F    Ord h|jre   ! ^K^K  Slut      ! ^K^D  Forlad editor !
+! ^Q^S  Liniestart  ^Q^D  Linieslut   ! ^K^Y  Slet      ! ^K^X  Afbryd editor !
+! ^E    Linie op    ^X    Linie ned   ! ^K^C  Kopier    ! ^V    INSERT flag   !
+! ^Q^E  Toplinie    ^Q^X  Bundlinie   ! ^K^V  Flyt      ! ^Z    AUTO flag     !
+! ^R    Side op     ^C    Side ned    ! ^K^P  Print     ! ^B    TABS flag     !
+! ^Q^R  Start text  ^Q^C  Slut text   ! ^K^R  L{s       ! ^W    ADJUST flag   !
+!                                     ! ^K^W  Skriv     ! ^P    Kontroltegn   !
+! Brug desuden tastaturets cursorpile ! ^K^H  Slet m{rk !                     !
++-------------------------------------+-----------------+---------------------+
+!                Slet                 !       Ret       !         S|g         !
++-------------------------------------+-----------------+---------------------+
+! ^H    Tegn venst  ^G    Tegn h|jre  ! RETN  Ny linie  ! ^Q^F  Find streng   !
+! ^Q^H  Liniestart  ^Q^Y  Linieslut   ! ^I    Tabuler   ! ^Q^A  S|g/erstat    !
+! ^Y    Hel linie   ^T    Ord h|jre   ! ^N    Inds{t CR ! ^L    Gentag        !
++-------------------------------------+-----------------+---------------------+
+! S|g/erstat tilvalg: G = Globalt, N = Sp|rg ikke, U = Store/sm}, W = Kun ord !
++-----------------------------------------------------------------------------+
+
+% PolyPascal On-Line Hj{lp: Kommandolinier.
+
+N}r  PolyPascal er klar til at modtage og udf|re en  kommandolinie,  ud-
+skrives en dobbelt vinkel ('>>'). F|lgende kommandoer er til r}dighed:
+
+LOAD     L{s kildetekst fra disk.      SAVE     Gem kildetekst p} disk.
+NAME     Vis/ret nuv{rende filnavn.    EDIT     Start editoren.
+WHERE    Genstart editoren.            COMPILE  Overs{t kildetekst.
+RUN      Start k|rsel af program.      PROGRAM  Overs{t til programfil.
+OBJECT   Overs{t til objektfil.        FIND     Find k|rselsfejl i tekst.
+DIR      Vis disk directory.           USE      Vis/ret autodisk/user.
+MEMORY   Vis lagerparametre.           ZAP      Slet kildetekst.
+HELP     Vis hj{lpetekst.              QUIT     Returner til MS-DOS.
+
+Bem{rk,  at alle kommandoer kan forkortes til deres f|rste bogstav,  for 
+eksempel 'L' i stedet for 'LOAD'.
+
+Hvis  du |nsker yderligere hj{lp med en af kommandoerne,  s}  skriv  'H' 
+eller 'HELP' efterfulgt af kommandoen (eller dens f|rste bogstav).
+
+%LPolyPascal On-Line Hj{lp: LOAD kommandoen.
+
+LOAD kommandoen bruges til at indl{se en ny kildetekstfil i arbejdslage-
+Kommandoliniens format er:
+
+                             LOAD <filnavn>
+
+Systemet v{lger automatisk '.PAS' hvis filtypen udelades. Hvis <filnavn> 
+udelades,  anvendes  arbejdsfilens  navn.  Hvis der er blevet  rettet  i 
+arbejdsfilen siden den blev indl{st eller sidst gemt, sp|rger PolyPascal 
+om den skal gemmes f|r den nye fil indl{ses. Hvis der svares nej, g}r de 
+{ndringer der er foretaget tabt. N}r en fil indl{ses, bliver den udn{vnt 
+til arbejdsfil,  og dens navn anvendes automatisk af LOAD, SAVE, PROGRAM 
+og OBJECT kommandoerne n}r intet andet angives. Hvis den fil der angives 
+ikke findes, udskriver PolyPascal 'No such file'. Hvis der ikke er plads 
+i  arbejdslageret til at indl{se filen,  udskriver PolyPascal 'File  too 
+big'. I begge disse tilf{lde nulstilles arbejdslageret, og arbejdsfilens 
+navn bliver 'WORK.PAS'.
+
+%SPolyPascal On-Line Hj{lp: SAVE kommandoen.
+
+SAVE  kommandoen bruges til at lagre arbejdsfilen p}  disk.  Kommandoli-
+niens format er:
+
+                             SAVE <filnavn>
+
+Systemet v{lger automatisk '.PAS' hvis filtypen udelades. Hvis <filnavn> 
+udelades,  anvendes arbejdsfilens navn.  Hvis der allerede findes en fil 
+af  samme  navn og type p} disken,  bliver denne fils  type  rettet  til 
+'.BAK' f|rend den nye fil oprettes.  Hvis filnavnet er ulovligt, udskri-
+ver  PolyPascal  'Invalid filename'.  Hvis diskens bibliotek  er  fuldt, 
+udskriver PolyPascal 'Directory is full'. Hvis disken er fuld, udskriver 
+PolyPascal  'Disk is full'.  Hvis en af de ovenst}ende fejl rapporteres, 
+s}  inds{t en anden disk,  udf|r en USE kommando og pr|v  derefter  SAVE 
+igen.
+
+%NPolyPascal On-Line Hj{lp: NAME kommandoen.
+
+NAME  kommandoen  anvendes til at vise og eventuelt {ndre  arbejdsfilens 
+navn. Arbejdsfilens navn bruges af LOAD, SAVE, PROGRAM og OBJECT komman-
+doerne hvis intet andet angives. Kommandoliniens format er:
+
+                             NAME <filnavn>
+
+Systemet v{lger automatisk '.PAS' hvis filtypen udelades. Hvis <filnavn> 
+udelades, bliver arbejdsfilens navn blot udskrevet; i modsat fald {ndres 
+arbejdsfilens navn til <filnavn>.
+
+Arbejdsfilens navn s{ttes til 'WORK.PAS' ved opstart af  PolyPascal,  og 
+n}r en ZAP kommando udf|res.
+
+%EPolyPascal On-Line Hj{lp: EDIT kommandoen.
+
+EDIT kommandoen starter editoren. Kommandoliniens format er:
+
+                             EDIT <filnavn>
+
+Systemet v{lger automatisk '.PAS' hvis filtypen udelades. Hvis <filnavn> 
+udelades (hvilket det normalt g|r),  bliver editoren startet umiddelbart 
+og  man  kan da editere arbejdsfilen.  Hvis  <filnavn>  angives,  bliver 
+arbejdsfilen  gemt (hvis der er rettet i den) og den nye fil indl{st f|r 
+editoren  startes.  Hvis man i dette tilf{lde forlader editoren  med  en 
+^K^D kommando,  udf|rer PolyPascal den modsatte proces,  dvs. gemmer den 
+nye  fil  og genindl{ser den oprindelige arbejdsfil.  Hvis  man  derimod 
+forlader  editoren med en ^K^X kommando,  bliver den nye fil udn{vnt til 
+arbejdsfilen.
+
+%WPolyPascal On-Line Hj{lp: WHERE kommandoen.
+
+WHERE kommandoen bruges til at genstarte editoren. N}r editoren forlades 
+(med en ^K^D eller ^K^X kommando), husker systemet p} cursorens position 
+i teksten. Hvis man senere udf|rer en WHERE kommando, genstartes editor-
+en, og cursoren flyttes til det sted, man tidligere forlod.
+
+N}r compileren rapporterer en fejl, s|rger den samtidig for, at en WHERE 
+kommando vil flytte cursoren til det fejlramte sted.  Efter en  compile-
+ring  med  fejl,  vil en WHERE kommando alts} starte editoren og  stille 
+cursoren ved fejlen.
+
+%CPolyPascal On-Line Hj{lp: COMPILE kommandoen.
+
+N}r compileren startes fra en COMPILE kommando,  bliver objektkoden gemt 
+direkte i lageret, umiddelbart efter kildeteksten.
+
+Efter  endt  overs{ttelse (forudsat,  at der ikke blev fundet  en  fejl) 
+informerer systemet om st|rrelsen af kodesegmentet, datasegmentet og det 
+frie lager (staksegmentet):
+
+                  Code: rrrrrr bytes (aaaa paragraphs)
+                  Data: ssssss bytes (bbbb paragraphs)
+                  Free: tttttt bytes (cccc paragraphs)
+
+Tallene i parentes er paragraf-st|rrelsen (i hexnotation) af det p}g{ld-
+ende omr}de. En paragraf svarer til 16 bytes.
+
+Bem{rk, at n}r editoren anvendes, bliver en eventuel objektkode slettet.
+
+%RPolyPascal On-Line Hj{lp: RUN kommandoen.
+
+RUN kommandoen starter et program. Kommandoliniens format er:
+
+                              RUN <params>
+
+hvor <params> er en valgfri parameterliste, der overgives til programmet 
+i  dets  kommandoliniebuffer.  Hvis der ikke findes en  objektkode,  n}r 
+kommandoen gives,  bliver compileren startet for at overs{tte kildeteks-
+ten  (se 'HELP COMPILE' teksten).  Forudsat at der ikke blev  fundet  en 
+fejl under overs{ttelsen,  eller hvis objektkoden allerede er til stede, 
+startes programmet.  N}r det slutter, bliver kontrollen automatisk over-
+givet til PolyPascal kommandoniveauet.
+
+Hvis der opst}r k|rselsfejl under udf|relsen af programmet,  bliver  det 
+stoppet, og en fejlmeddelelse udskrives:
+
+                     EXECUTION ERROR 04 AT PC=254E
+                     Program terminated
+
+FIND kommandoen kan da bruges til at finde den s{tning,  der var skyld i 
+fejlen (se 'HELP FIND' teksten).
+
+%PPolyPascal On-Line Hj{lp: PROGRAM kommandoen.
+
+N}r  compileren  startes fra en PROGRAM  kommando,  bliver  programkoden 
+lagret i en diskfil. Kommandoliniens format er:
+
+       PROGRAM <filename>,<ssegmin>,<ssegmax>,<csegmin>,<dsegmin>
+
+Hvis <filnavn> udelades,  v{lges det nuv{rende filnavn med typen  {ndret 
+til '.CMD'.  <ssegmin>,  <ssegmax>, <csegmin> og <dsegmin> er hextal (op 
+til  fire  cifre).  Hver af disse parametre kan angives  eller  udelades 
+efter  behag,  for  eksempel  'PROGRAM TEST,800' (kun  <ssegmin>)  eller 
+'PROGRAM TEST,,,CD8,12E4' (kun <csegmin> og <dsegmin>).
+
+<ssegmin> og <ssegmax> angiver minimum- og maksimumst|rrelserne (i para-
+graffer) p} staksegmentet.  Hvis <ssegmin> udelades,  v{lges 100 hex (4K 
+bytes).  Hvis <ssegmax> udelades, v{lges v{rdien af <ssegmin>. <csegmin> 
+og  <csegmax> angiver minimumst|rrelserne p}  kode- og  datasegmenterne. 
+Hvis  de udelades,  v{lges de lavest mulige v{rdier.  V{rdierne m}  ikke 
+v{re st|rre end FFF hex (64K bytes), og de angives normalt kun i forbin-
+delse  med  programmer  der chainer andre programmer  med  st|rre  kode- 
+og/eller  datasegmenter.  Efter endt overs{ttelse kan programmet startes 
+fra MS-DOS blot ved at taste dets navn.
+
+%OPolyPascal On-Line Hj{lp: OBJECT kommandoen.
+
+OBJECT kommandoen svarer til PROGRAM kommandoen,  med den undtagelse, at 
+run-time  programdelen  ikke medtages i den diskfil,  der  genereres  af 
+compileren. Kommandoliniens format er:
+
+                            OBJECT <filnavn>
+
+Hvis  <filnavn> udelades,  v{lges det nuv{rende filnavn med typen {ndret 
+til '.CHN' (forkortelse af chain).   Objektfiler kan kun startes ved  et 
+kald  til  chain standardproceduren fra en anden PolyPascal  programfil. 
+Yderligere beskrivelse findes i PolyPascal Programmeringsmanualen.
+
+%FPolyPascal On-Line Hj{lp: FIND kommandoen.
+
+FIND  kommandoen  bruges til at finde en  s{tning  i  kildeteksten,  der 
+svarer til en offsetadresse i programkoden. Kommandoliniens format er:
+
+                             FIND <offset>
+
+hvor  <offset>  er adressen i programkoden p} den  s{tning,  der  |nskes 
+fundet. Adressen skal angives i hexnotation (op til fire hexcifre). Hvis 
+<offset>  udelades,  v{lger  systemet automatisk adressen p} den  sidste 
+k|rselsfejl. S}ledes kan man, blot ved at taste 'FIND' efter en k|rsels-
+fejl, finde den s{tning i kildeteksten, der er skyld i fejlen.
+
+Hvis compileren finder den adresse der angives, stopper den og udskriver 
+'Found  in  line xxx' efterfulgt af 'Press <RETURN> to edit or <ESC>  to 
+abort'.  Ved et tryk p} <RETURN> startes editoren,  og cursoren  flytter 
+automatisk til det sted i kildeteksten der blev fundet. Hvis den angivne 
+adresse  ligger udenfor programmets gr{nser,  udskrives 'Target  address 
+not found'.
+
+%DPolyPascal On-Line Hj{lp: DIR kommandoen.
+
+DIR  kommandoen  bruges til at udskrive en diskettes directory  (biblio-
+tek). Kommandoliniens format er:
+
+                             DIR <filnavn>
+
+hvor  <filnavn>  er et flertydigt filnavn af samme format som  det,  der 
+anvendes af MS-DOS systemets DIR kommando, dvs. et filnavn hvori sp|rgs-
+m}lstegn (?) og stjerner (*) m} indg}.
+
+Et sp|rgsm}lstegn angiver, at denne position kan indeholde ethvert tegn, 
+og  en  stjerne  angiver,  at resten af tegnene i  det  p}g{ldende  felt 
+(navnet eller typen) kan v{re hvad som helst.  Hvis <filnavn> kun best}r 
+af  en r{kke biblioteksnavne,  udskrives alle filer i  det  resulterende 
+underbibliotek.  Hvis <filnavn> udelades helt, udskrives navnene p} alle 
+filer (i det nuv{rende underbibliotek) p} den nuv{rende disk.
+
+%UPolyPascal On-Line Hj{lp: USE kommandoen.
+
+USE  kommandoen bruges til at vise og eventuelt {ndre den nuv{rende disk 
+og det nuv{rende underbibliotek. Kommandoliniens format er:
+
+                              USE <liste>
+
+hvor  <liste> er en drive-identifier og/eller en  r{kke  biblioteksnavne 
+adskilt  af  bagl{ns skr}streger.  Formatet er det samme  som  det,  der 
+anvendes af CHDIR kommandoen i MS-DOS.  Hvis <liste> udelades, udskriver 
+USE den liste, der f|rer frem til det nuv{rende underbibliotek.
+
+%MPolyPascal On-Line Hj{lp: MEMORY kommandoen.
+
+MEMORY  kommandoen  udskriver st|rrelsen af programkoden og antallet  af 
+ledige bytes i arbejdslageret:
+
+              Code: rrrrrr bytes (aaaa paragraphs)
+              Data: ssssss bytes (bbbb paragraphs)
+              Free: tttttt bytes (cccc paragraphs)
+
+'Code'  og  'Data' linierne udskrives kun,  hvis der findes  en  oversat 
+version  af det nuv{rende program i lageret.  De i parantes viste tal er 
+st|rrelsen  af  de p}g{ldende segmenter i "paragraffer".  Tallene  er  i 
+hexnotation, og en paragraf svarer til 16 bytes.
+
+%ZPolyPascal On-Line Hj{lp: ZAP kommandoen.
+
+ZAP  kommandoen  bruges  til at slette teksten i lageret  eller  til  at 
+slette en diskfil. Kommandoliniens format er:
+
+                             ZAP <filnavn>
+
+Systemet v{lger automatisk '.PAS' hvis filtypen udelades. Hvis <filnavn> 
+angives,  slettes den p}g{ldende diskfil. Hvis <filnavn> udelades, slet-
+tes teksten i lageret og arbejdsfilens navn s{ttes til 'WORK.PAS'.  Hvis 
+der  er blevet rettet i arbejdsfilen siden den blev indl{st eller  sidst 
+gemt, sp|rger PolyPascal om den skal gemmes f|rend den slettes. Hvis der 
+svares nej, g}r de {ndringer der er foretaget tabt.
+
+%QPolyPascal On-Line Hj{lp: QUIT kommandoen.
+
+QUIT  kommandoen  returnerer til operativsystemet.  Hvis der  er  blevet 
+rettet i arbejdsfilen siden den blev indl{st eller sidst  gemt,  sp|rger 
+PolyPascal  om  den  skal gemmes f|rend PolyPascal  forlades.  Hvis  der 
+svares nej, g}r de {ndringer der er foretaget tabt.
+
+PolyPascal  kan senere varmstartes med kommandolinien  'PPAS  *'.  Dette 
+kr{ver dog,  at der ikke i mellemtiden er k|rt programmer, der har over-
+skrevet dele af arbejdslageret.
+
+

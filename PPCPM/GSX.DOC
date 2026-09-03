@@ -1,0 +1,606 @@
+
+
+             PolyPascal Supplementary Documentation
+                     GSX Interface Routines
+
+                       Copyright (C) 1985
+                    PolyData MicroCenter A/S
+
+
+
+This  file contains documentation for the GSX interface  routines 
+contained  in the GSX.PAS include file.  If your computer is  not 
+equipped with high-res graphics, or if the GSX Graphics Operating 
+System is not available for your computer system, the GSX.PAS and 
+GSX.DOC files are of no interest to you.
+
+The GSX.PAS include file will allow you to write graphics  appli-
+cation  programs  which  interface graphics devices via  the  GSX 
+Graphics Operating System.  The GSX Programmer's Reference Manual 
+describes  in detail all of the functions supported by  GSX.  The 
+GSX.PAS  library  allows  you to call any  GSX  function  without 
+resorting to an assembly language program.  Also,  the input  and 
+output  parameters  passing  scheme is designed   to   take  full 
+advantage of the PolyPascal language.
+
+
+1. Using the GSX interface routines
+-----------------------------------
+
+To  include  the GSX interface routines in the compilation  of  a 
+program,  insert the following include file directive at the very 
+beginning of the program:
+
+              {$I GSX}        or        {$I d:GSX}
+
+where "d:" is the drive containing the GSX.PAS file.
+
+The  GSX.PAS file contains the following CONST and TYPE  declara-
+tions:
+
+    CONST
+      MAXINTIN  = 80;
+      MAXPTSIN  = 4;
+      MAXINTOUT = 80;
+      MAXPTSOUT = 2;
+
+    TYPE
+      COOR      = RECORD
+                    X,Y: INTEGER;
+                  END;
+      STRINGIN  = STRING[MAXINTIN];
+      STRINGOUT = STRING[MAXINTOUT];
+
+The  four constants define the maximum number of input and output 
+integers and points.  MAXPTSIN and MAXPTSOUT need never be  chan-
+ged.  MAXINTIN  and MAXINTOUT may however require modification as 
+they define the maximum lengths of strings that can be input  and 
+output.  MAXINTIN and MAXINTOUT should never be less than 10. The 
+COOR type is used for storing coordinates.  Many routines require 
+an ARRAY[1..N] OF COOR as a parameter, so you will frequently use 
+this type. STRINGIN and STRINGOUT define the type of strings that 
+can  be input and output.  Strings of smaller maximum lengths may 
+of course be used as well.
+
+In addition, the GSX.PAS file declares the following variables:
+
+    VAR
+      CONTRL    : ARRAY[1..9] OF INTEGER;
+      INTIN     : ARRAY[1..MAXINTIN] OF INTEGER;
+      PTSIN     : ARRAY[1..MAXPTSIN] OF COOR;
+      INTOUT    : ARRAY[1..MAXINTOUT] OF INTEGER;
+      PTSOUT    : ARRAY[1..MAXPTSOUT] OF COOR;
+      WSINTOUT  : ARRAY[1..45] OF INTEGER;
+      WSPTSOUT  : ARRAY[1..6] OF COOR;
+      ACTUAL    : INTEGER;
+
+Don't  modify any of  the  declarations.  CONTRL,  INTIN,  PTSIN, 
+INTOUT  and PTSOUT are used internally by the GSX interface  rou-
+tines  to  pass parameters to GSX.  WSINTOUT and WSPTSOUT  always 
+contain the values returned by the last "Open Workstation"  call. 
+Refer  to  the  GSX documentation for a complete  description  of 
+these  arrays.  ACTUAL  is used by many routines  to  return  the 
+actual  value realized when a request is made to change a  device 
+parameter.
+
+Some  of the routines require an ARRAY[1..N] OF INTEGER/COOR as a 
+variable  parameter.  Such parameters are declared  as  "untyped" 
+parameters by all routines, to allow arrays of variable length to 
+be  passed.  The  drawback of this method is that the  compiler's 
+type checks are disabled,  thereby leaving all type checks up  to 
+you!
+
+In  addition to the identifiers described above and the identifi-
+ers of the GSX interface routines,  the following identifiers are 
+used in GSX.PAS:  GSX,  GSXC,  GSXP,  GSXI,  GSXX, GSXY, ESCP and 
+ESCN.  Don't use these identifiers in your application  programs, 
+or you will get a "Duplicate identifier" error message.
+
+
+2. Workstation functions
+------------------------
+
+Function:   Open Workstation with default parameters.
+
+Header:     PROCEDURE OPENWS(ID: INTEGER);
+
+Remarks:    ID  is the workstation ID number.  All input  parame-
+            ters,  i.e. INTIN[2..10], default to 1. To explicitly 
+            specify  the  input parameters use the INITWS  proce-
+            dure.  WSINTOUT  and  WSPTSOUT contain  the  returned 
+            values.  These may be examined to determine the  cha-
+            racteristics of the driver.
+
+
+Function:   Open Workstation specifying parameters.
+
+Header:     PROCEDURE INITWS(VAR WSINTIN);
+
+Remarks:    The type of WSINTIN is ARRAY[1..10] OF INTEGER.  Note 
+            that  the first element must contain the  workstation 
+            ID number. WSINTOUT and WSPTSOUT contain the returned 
+            values.  These  may be examined to determine the cha-
+            racteristics of the
+            driver.
+
+
+Function:   Close Workstation.
+
+Header:     PROCEDURE CLOSEWS;
+
+
+Function:   Clear Workstation.
+
+Header:     PROCEDURE CLEARWS;
+
+
+Function:   Update Workstation.
+
+Header:     PROCEDURE UPDATEWS;
+
+
+3. Line drawing functions
+-------------------------
+
+Function:   Polyline.
+
+Header:     PROCEDURE POLYLINE(NPTS: INTEGER; VAR PTSIN);
+
+Remarks:    NPTS  is the number of points in PTSIN.  The type  of 
+            PTSIN is ARRAY[1..NPTS] OF COOR.
+
+
+Function:   Set Polyline Line Type.
+
+Header:     PROCEDURE LINETYPE(TYP: INTEGER);
+
+Remarks:    TYP  is the requested line type.  ACTUAL returns  the 
+            actual line type.
+
+
+Function:   Set Polyline Line Width.
+
+Header:     PROCEDURE LINEWIDTH(WIDTH: INTEGER);
+
+Remarks:    WIDTH  is  the  requested line width  in  NDC  units. 
+            ACTUAL returns the actual line width.
+
+
+4. Point marking functions
+--------------------------
+
+Function:   Polymarker.
+
+Header:     PROCEDURE POLYMARK(NPTS: INTEGER; VAR PTSIN);
+
+Remarks:    NPTS  is the number of points in PTSIN.  The type  of 
+            PTSIN is ARRAY[1..NPTS] OF COOR.
+
+
+Function:   Set Polymarker Type.
+
+Header:     PROCEDURE MARKTYPE(TYP: INTEGER);
+
+Remarks:    TYP is the requested polymarker type.  ACTUAL returns 
+            the actual polymarker type.
+
+
+Function:   Set Polymarker Scale.
+
+Header:     PROCEDURE MARKSCALE(SCALE: INTEGER);
+
+Remarks:    SCALE  is  the  requested polymarker  height  in  NDC 
+            units. ACTUAL returns the actual height.
+
+
+5. Generalized drawing primitives
+---------------------------------
+
+Function:   Bar.
+
+Header:     PROCEDURE BAR(X1,Y1,X2,Y2: INTEGER);
+
+Remarks:    X1  and  Y1  are the coordinates of  the  lower  left 
+            corner.  X2  and Y2 are the coordinates of the  upper 
+            right corner.
+
+
+Function:   Arc.
+
+Header:     PROCEDURE ARC(STARTANG,ENDANG,XCTR,YCTR,XSTART,YSTART,
+              XEND,YEND,RADIUS: INTEGER);
+
+Remarks:    STARTANG is the start angle in tenths of degrees  (0-
+            3600).  ENDANG  is the end angle in tenths of degrees 
+            (0-3600).  XCTR  and YCTR are the coordinates of  the 
+            center.  XSTART and YSTART are the coordinates of the 
+            start point of the circumfence. XEND and YEND are the 
+            coordinates  of  the end point  of  the  circumfence. 
+            RADUIS is the radius in NDC units.
+
+
+Function:   Pie Slice.
+
+Header:     PROCEDURE PIE(STARTANG,ENDANG,XCTR,YCTR,XSTART,YSTART,
+              XEND,YEND,RADIUS: INTEGER);
+
+Remarks:    See description of ARC.
+
+
+Function:   Circle.
+
+Header:     PROCEDURE CIRCLE(XCTR,YCTR,RADIUS: INTEGER);
+
+Remarks:    XCTR  and  YCTR  are the coordinates of  the  center. 
+            RADIUS is the radius in NDC units.
+
+
+6. Filled area functions
+------------------------
+
+Function:   Filled Area.
+
+Header:     PROCEDURE POLYFILL(NPTS: INTEGER; VAR PTSIN);
+
+Remarks:    NPTS  is the number of points in PTSIN.  The type  of 
+            PTSIN is ARRAY[1..NPTS] OF COOR.
+
+
+Function:   Cell Array.
+
+Header:     PROCEDURE CELLARRAY(ROWLEN,WIDTH,HEIGHT,MODE: INTEGER;
+              X1,Y1,X2,Y2: INTEGER; VAR COLORINDEX);
+
+Remarks:    ROWLEN  is the length of each row in the color  index 
+            array. WIDTH is the number of elements in each row of 
+            the cell array.  HEIGHT is the number of rows in  the 
+            cell array. MODE is the pixel operation to be perfor-
+            med (1-4). X1 and Y1 are the coordinates of the lower 
+            left  corner.  X2  and Y2 are the coordinates of  the 
+            upper  right corner.  COLORINDEX is the  color  index 
+            array.  The  type of COLORINDEX is  ARRAY[1..(HEIGHT-
+            1)*ROWLEN+WIDTH] OF INTEGER.
+
+
+Function:   Set Fill Interior Style.
+
+Header:     PROCEDURE FILLTYPE(TYP: INTEGER);
+
+Remarks:    TYP  is the requested fill style.  ACTUAL returns the 
+            actual fill style.
+
+
+Function:   Set Fill Style Index.
+
+Header:     PROCEDURE FILLSTYLE(INDEX: INTEGER);
+
+Remarks:    INDEX is the requested fill style index.  ACTUAL  re-
+            turns the actual fill style index.
+
+
+7. Text functions
+-----------------
+
+Function:   Text.
+
+Header:     PROCEDURE GTEXT(X,Y: INTEGER; S: STRINGIN);
+
+Remarks:    X  and Y are the coordinates of the lower left corner 
+            of  the first character.  S is the character  string. 
+            The characters in S are converted to words and stored 
+            in INTIN before the call.  The maximum length  there-
+            fore depends on the MAXINTIN constant.
+
+
+Function:   Set Character Height.
+
+Header:     PROCEDURE CHARHEIGHT(HEIGHT: INTEGER;
+              VAR CHARW,CHARH,CELLW,CELLH: INTEGER);
+
+Remarks:    HEIGHT  is  the  requested character  height  in  NDC 
+            units.  CHARW,  CHARH, CELLW and CELLH return the ac-
+            tual  character  width and height and cell width  and 
+            height.
+
+
+Function:   Set Character Up Vector.
+
+Header:     PROCEDURE CHARUPVEC(ANGLE: INTEGER);
+
+Remarks:    ANGLE is the requested rotation angle of the baseline 
+            in tenths of degrees (0-3600).  The run and the  rise 
+            of the baseline are automatically calculated.  ACTUAL 
+            returns the actual rotation angle.
+
+
+Function:   Set Text Font.
+
+Header:     PROCEDURE TEXTFONT(FONT: INTEGER);
+
+Remarks:    FONT  is the requested text font number.  ACTUAL  re-
+            turns the actual text font number.
+
+
+8. Color functions
+------------------
+
+Function:   Set Color Representation.
+
+Header:     PROCEDURE SETCOLOR(INDEX,RED,GREEN,BLUE: INTEGER);
+
+Remarks:    INDEX  is the requested color index.  RED,  GREEN and 
+            BLUE are the requested color intensities in tenths of 
+            a  percent  (0-1000).  The actual  color  intensities 
+            selected  may be examined using the  INQCOLOR  proce-
+            dure.
+
+
+Function:   Set Polyline Color Index.
+
+Header:     PROCEDURE LINECOLOR(INDEX: INTEGER);
+
+Remarks:    INDEX  is the requested color index.  ACTUAL  returns 
+            the actual color index.
+
+
+Function:   Set Polymarker Color Index.
+
+Header:     PROCEDURE MARKCOLOR(INDEX: INTEGER);
+
+Remarks:    INDEX  is the requested color index.  ACTUAL  returns 
+            the actual color index.
+
+
+Function:   Set Text Color Index.
+
+Header:     PROCEDURE TEXTCOLOR(INDEX: INTEGER);
+
+Remarks:    INDEX  is the requested color index.  ACTUAL  returns 
+            the actual color index.
+
+
+Function:   Set Fill Color Index.
+
+Header:     PROCEDURE FILLCOLOR(INDEX: INTEGER);
+
+Remarks:    INDEX  is the requested color index.  ACTUAL  returns 
+            the actual color index.
+
+
+9. Mode control functions
+-------------------------
+
+Function:   Set Writing Mode.
+
+Header:     PROCEDURE WRITEMODE(MODE: INTEGER);
+
+Remarks:    MODE  is the requested writing mode.  ACTUAL  returns 
+            the actual writing mode.
+
+
+10. Input functions
+-------------------
+
+Function:   Set Input Mode.
+
+Header:     PROCEDURE INPUTMODE(DEVICE,MODE: INTEGER);
+
+Remarks:    DEVICE  is the requested logical device.  MODE is the 
+            requested input mode.  Usually this procedure is  not 
+            used since the the input procedures select the proper 
+            input mode automatically.
+
+
+Function:   Input Locator, Request Mode.
+
+Header:     PROCEDURE RQLOCATOR(DEVICE,XIN,YIN: INTEGER;
+              VAR STATUS,TERM,XOUT,YOUT: INTEGER);
+
+Remarks:    DEVICE  is the requested locator device.  XIN and YIN 
+            are  the  initial coordinates of the locator  in  NDC 
+            units.  STATUS=0 means unsuccessful request, STATUS>0 
+            means successful.  TERM returns the terminator value. 
+            XOUT  and  YOUT return the final coordinates  of  the 
+            locator in NDC units.
+
+
+Function:   Input Locator, Sample Mode.
+
+Header:     PROCEDURE SMLOCATOR(DEVICE: INTEGER;
+              VAR STATUS,XOUT,YOUT: INTEGER);
+
+Remarks:    DEVICE  is  the requested  locator  device.  STATUS=0 
+            means unsuccessful sample, STATUS>0 means successful. 
+            XOUT  and  YOUT return the final coordinates  of  the 
+            locator in NDC units.
+
+
+Function:   Input Valuator, Request Mode.
+
+Header:     PROCEDURE RQVALUATOR(DEVICE,VIN: INTEGER;
+              VAR STATUS,VOUT: INTEGER);
+
+Remarks:    DEVICE is the requested valuator device.  VIN is  the 
+            initial value (0-32767).  STATUS=0 means unsuccessful 
+            request,  STATUS>0 means successful. VOUT is the out-
+            put value.
+
+
+Function:   Input Valuator, Sample Mode.
+
+Header:     PROCEDURE SMVALUATOR(DEVICE: INTEGER;
+              VAR STATUS,VOUT: INTEGER);
+
+Remarks:    DEVICE  is  the requested valuator  device.  STATUS=0 
+            means unsuccessful sample, STATUS>0 means successful. 
+            VOUT is the output value.
+
+
+Function:   Input Choice, Request Mode.
+
+Header:     PROCEDURE RQCHOICE(DEVICE,CIN: INTEGER;
+              VAR STATUS,COUT: INTEGER);
+
+Remarks:    DEVICE  is the requested choice device.  CIN  is  the 
+            initial choice requested. STATUS=0 means unsuccessful 
+            request,  STATUS>0 means successful. COUT returns the 
+            choice number.
+
+
+Function:   Input Choice, Sample Mode.
+
+Header:     PROCEDURE SMCHOICE(DEVICE: INTEGER;
+              VAR STATUS,COUT: INTEGER);
+
+Remarks:    DEVICE is the requested choice device. STATUS=0 means 
+            unsuccessful sample,  STATUS>0 means successful. COUT 
+            returns the choice number.
+
+
+Function:   Input String, Request Mode.
+
+Header:     PROCEDURE RQSTRING(DEVICE,MAXLEN,MODE: INTEGER;
+              VAR S: STRINGOUT);
+
+Remarks:    DEVICE is the requested string device.  MAXLEN is the 
+            maximum  string  length requested.  MODE=0  means  no 
+            echo,  MODE=1  means echo input on screen.  S returns 
+            the string.  If the length of S is zero,  the request 
+            was  unsuccessful.  If the string variable passed  to 
+            RQSTRING  is not of type STRINGOUT,  use the  (*$V-*) 
+            compiler  directive to disable "strict"  string  type 
+            checking.
+
+
+11. Status inquiry functions
+----------------------------
+
+Function:   Inquire Color Representation.
+
+Header:     PROCEDURE INQCOLOR(RINDEX,FLAG: INTEGER;
+              VAR SINDEX,RED,GREEN,BLUE: INTEGER);
+
+Remarks:    RINDEX  is  the requested color index.  FLAG=0  means 
+            specified  color values,  FLAG=1 means  actual  color 
+            values. SINDEX returns the selected color index. RED, 
+            GREEN and BLUE return the color intensities in tenths 
+            of a percent (0-1000).
+
+
+12. Escape functions
+--------------------
+
+Function:   Inquire Addressable Character Cells.
+
+Header:     PROCEDURE INQCELLS(VAR ROW,COL: INTEGER);
+
+Remarks:    ROW  returns  the number of rows on the  device.  COL 
+            returns the number of columns on the device.
+
+
+Function:   Enter Graphics Mode.
+
+Header:     PROCEDURE ENTERGRAF;
+
+
+Function:   Exit Graphics Mode.
+
+Header:     PROCEDURE EXITGRAF;
+
+
+Function:   Alpha Cursor Up.
+
+Header:     PROCEDURE CURSORUP;
+
+
+Function:   Alpha Cursor Down.
+
+Header:     PROCEDURE CURSORDOWN;
+
+
+Function:   Alpha Cursor Right.
+
+Header:     PROCEDURE CURSORRIGHT;
+
+
+Function:   Alpha Cursor Left.
+
+Header:     PROCEDURE CURSORLEFT;
+
+
+Function:   Alpha Cursor Home.
+
+Header:     PROCEDURE CURSORHOME;
+
+
+Function:   Alpha Erase To End Of Screen.
+
+Header:     PROCEDURE ERAEOS;
+
+
+Function:   Alpha Erase To End Of Line.
+
+Header:     PROCEDURE ERAEOL;
+
+
+Function:   Direct Cursor Address.
+
+Header:     PROCEDURE CURSOR(ROW,COL: INTEGER);
+
+Remarks:    ROW is the requested row number. COL is the requested             
+            column number.
+
+
+Function:   Output Cursor Addressable Text.
+
+Header:     PROCEDURE CTEXT(S: STRINGIN);
+
+Remarks:    S  is the character string.  The characters in S  are             
+            converted  to  words and stored in INTIN  before  the 
+            call.  The  maximum length therefore depends  on  the 
+            MAXINTIN constant.
+
+
+Function:   Reverse Video On.
+
+Header:     PROCEDURE REVERSEON;
+
+
+Function:   Reverse Video Off.
+
+Header:     PROCEDURE REVERSEOFF;
+
+
+Function:   Inquire Current Cursor Address.
+
+Header:     PROCEDURE INQCURSOR(VAR ROW,COL: INTEGER);
+
+Remarks:    ROW  returns the row number.  COL returns the  column 
+            number.
+
+
+Function:   Inquire Tablet Status.
+
+Header:     PROCEDURE INQTABLET(VAR STATUS: INTEGER);
+
+Remarks:    STATUS returns 0 if a graphics tablet is not availab-
+            le or 1 if a graphics tablet is available.
+
+
+Function:   Hardcopy.
+
+Header:     PROCEDURE HARDCOPY;
+
+
+Function:   Place Graphics Cursor At Location.
+
+Header:     PROCEDURE GCURSOR(X,Y: INTEGER);
+
+Remarks:    X  and Y are the requested coordinates for the  grap-
+            hics cursor.
+
+
+Function:   Remove Last Graphics Cursor.
+
+Header:     PROCEDURE REMGCUR;
+

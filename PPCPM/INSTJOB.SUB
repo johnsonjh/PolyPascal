@@ -1,0 +1,4 @@
+PIP $1=PPAS.*
+PIP $1=INSTALL.*
+SET $1PPAS.*[SYS]
+ forventetfilerntegerUdtryk er ikke af trengVariable af denne type ka
