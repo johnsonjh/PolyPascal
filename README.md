@@ -2,7 +2,7 @@
 
 ## Overview
 
-* This is an English translation of **PolyPascal-86 3.1** for
+* This is an English translation of **PolyPascal-86 3.11** for
   DOS and CP/M-86.
 * See
   [https://datamuseum.dk/wiki/PolyPascal](https://datamuseum.dk/wiki/PolyPascal)
