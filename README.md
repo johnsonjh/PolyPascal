@@ -1,8 +1,8 @@
-# PolyPascal-86 3.11 for DOS and CP/M-86
+# PolyPascal-86 V3.11 for DOS and CP/M-86
 
 ## Overview
 
-* This is an English translation of **PolyPascal-86 3.11** for
+* This is an English translation of **PolyPascal-86 V3.11** for
   DOS and CP/M-86.
 * See
   [https://datamuseum.dk/wiki/PolyPascal](https://datamuseum.dk/wiki/PolyPascal)

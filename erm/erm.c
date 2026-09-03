@@ -1,5 +1,5 @@
 /*
- * PolyPascal-86 3.11 error message compiler/decompiler - erm.c
+ * PolyPascal-86 V3.11 error message compiler/decompiler utility - erm.c
  * Copyright (c) 2026 Jeffrey H. Johnson <johnsonjh.dev@gmail.com>
  * SPDX-License-Identifier: MIT-0
  * scspell-id: 51f2da5e-a774-11f1-b904-80ee73e9b8e7
@@ -11,6 +11,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/******************************************************************************/
+
+#ifdef VERSION
+# undef VERSION
+#endif
+
+/******************************************************************************/
+
+#define VERSION "1.0"
 
 /******************************************************************************/
 
@@ -44,10 +54,118 @@ static const int never = 0;
 
 /******************************************************************************/
 
-static void
-usage (const char * progname)
+# define TRIM_BUFSIZE 256
+# define TRIM_RING 3 /* max reentrancy depth, use calls +1 */
+
+static char *
+sqz_str (const char * const s)
 {
-  (void)fprintf (stderr, "Usage: %s -u <file.erm> -o <file.txt>\n", progname);
+    static char bufs [TRIM_RING] [TRIM_BUFSIZE];
+    static int idx = 0;
+
+    const char * p;
+    const char * q;
+    const char * last;
+
+    char * buf;
+    char * d;
+
+    buf = bufs [idx];
+    idx++;
+
+    if (idx >= TRIM_RING)
+      {
+        idx = 0;
+      }
+
+    if (s == 0)
+      {
+        buf [0] = '\0';
+
+        return buf;
+      }
+
+    p = s;
+
+    while (* p == ' ' || * p == '\t' || * p == '\r' || * p == '\n')
+      {
+        p++;
+      }
+
+    if (* p == '\0')
+      {
+        buf [0] = '\0';
+
+        return buf;
+      }
+
+    q = p;
+    last = p;
+
+    while (* q != '\0')
+      {
+        if (* q != ' ' && * q != '\t' && * q != '\r' && * q != '\n')
+          {
+            last = q;
+          }
+
+        q++;
+      }
+
+    d = buf;
+
+    {
+      int in_ws = 0;
+
+      while (p <= last && d < buf + (TRIM_BUFSIZE - 1))
+        {
+          if (* p == ' ' || * p == '\t' || * p == '\r' || * p == '\n')
+            {
+              in_ws = 1;
+            }
+          else
+            {
+              if (in_ws)
+                {
+                  * d++ = ' ';
+                  in_ws = 0;
+                }
+
+              * d++ = * p;
+            }
+
+          p++;
+        }
+    }
+
+    * d = '\0';
+
+    return buf;
+}
+
+/******************************************************************************/
+
+static void
+usage (const char * progname, int nl)
+{
+  if (nl)
+    {
+      (void)fprintf (stderr, "\r\n");
+    }
+
+  (void)fprintf (stderr, "ERM - "
+      "PolyPascal-86 V3.11 error message file compiler/decompiler utility\n");
+  (void)fprintf (stderr, "Release " VERSION
+#if defined (__DATE__) && defined (__TIME__)
+                 " (Built %s %s)", sqz_str (__DATE__), sqz_str (__TIME__)
+#elif defined (__DATE__)
+                 " (Built %s)", sqz_str (__DATE__)
+#endif
+                );
+  (void)fprintf (stderr, " https://github.com/johnsonjh/PolyPascal\n");
+  (void)fprintf (stderr,
+       "Copyright (c) 2026 Jeffrey H. Johnson <johnsonjh.dev@gmail.com>\n\n");
+  (void)fprintf (stderr, "USAGE: %s -u <file.erm> -o <file.txt>\n", progname);
   (void)fprintf (stderr, "       %s -p <file.txt> -o <file.erm>\n", progname);
 }
 
@@ -208,7 +326,7 @@ pack (const char * in_filename, const char * out_filename)
 
   while (fgets (line, sizeof (line), fin))
     {
-      int len = strlen (line);
+      size_t len = strlen (line);
       char * first_quote;
       char * last_quote;
       const char * code;
@@ -356,8 +474,8 @@ main (int argc, const char * const argv [])
           else
             {
               (void)fprintf (stderr,
-                             "Error: -u requires a filename argument\n");
-              usage (argv [0]);
+                             "ERROR: '-u' requires a filename argument!\n");
+              usage (argv [0], 1);
 
               return EXIT_FAILURE;
             }
@@ -373,8 +491,8 @@ main (int argc, const char * const argv [])
           else
             {
               (void)fprintf (stderr,
-                             "Error: -p requires a filename argument\n");
-              usage (argv [0]);
+                             "ERROR: '-p' requires a filename argument!\n");
+              usage (argv [0], 1);
 
               return EXIT_FAILURE;
             }
@@ -388,16 +506,16 @@ main (int argc, const char * const argv [])
           else
             {
               (void)fprintf (stderr,
-                             "Error: -o requires a filename argument\n");
-              usage (argv [0]);
+                             "ERROR: '-o' requires a filename argument!\n");
+              usage (argv [0], 1);
 
               return EXIT_FAILURE;
             }
         }
       else
         {
-          (void)fprintf (stderr, "Error: Unknown argument '%s'\n", argv [i]);
-          usage (argv [0]);
+          (void)fprintf (stderr, "ERROR: Unknown argument '%s'!\n", argv [i]);
+          usage (argv [0], 1);
 
           return EXIT_FAILURE;
         }
@@ -405,24 +523,23 @@ main (int argc, const char * const argv [])
 
   if (! do_unpack && ! do_pack)
     {
-      (void)fprintf (stderr, "Error: Must specify either -u or -p\n");
-      usage (argv [0]);
+      usage (argv [0], 0);
 
       return EXIT_FAILURE;
     }
 
   if (do_unpack && do_pack)
     {
-      (void)fprintf (stderr, "Error: Cannot specify both -u and -p\n");
-      usage (argv [0]);
+      (void)fprintf (stderr, "ERROR: Cannot specify both '-u' and '-p'!\n");
+      usage (argv [0], 1);
 
       return EXIT_FAILURE;
     }
 
   if (! out_file)
     {
-      (void)fprintf (stderr, "Error: Output file (-o) must be specified\n");
-      usage (argv [0]);
+      (void)fprintf (stderr, "ERROR: Output file ('-o') must be specified!\n");
+      usage (argv [0], 1);
 
       return EXIT_FAILURE;
     }

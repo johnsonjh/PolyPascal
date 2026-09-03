@@ -1,20 +1,21 @@
-# `erm`
+# `ERM`
 
 ## Overview
 
-* `erm` is a utility to decompile and recompile the PolyPascal-86
-  3.11 error message files (`PPAS.ERM`).
+* **ERM** is a utility to decompile and recompile the PolyPascal-86
+  V3.11 error message files (`PPAS.ERM`).
 * It has been verified to produce byte-exact round-trip results when
   decompiling and then recompiling the shipping Danish-language files.
-* The `erm` utility is a single file ([`erm.c`](erm.c)) ANSI C89 utility
-  that can be built with any standard C compiler.  It also works with the
+* The **ERM** utility is built from a single file ([`erm.c`](erm.c)) and
+  is written in strict ANSI C89, so it can be built with any compiler.
+  It also works with the
   [SoftIntegration Ch](https://softintegration.com/) C interpreter.
 
 ## Notes
 
 * [`.stash/310.TXT`](.stash/310.TXT) file is an English-language
   PolyPascal-80 V3.10 error message file that has been decompiled to the
-  same format as that which `erm` produces.
+  same format as that which **ERM** produces.
 * This file is for **REFERENCE ONLY**.  It is **NOT** compatible with
   PolyPascal-86 V3.11 and is included in the repository only to aid in the
   Danish to English translation work.
