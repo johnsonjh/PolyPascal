@@ -97,3 +97,9 @@
 
 * Error messages are stored in the `PPAS.ERM` file and are not yet
   translated.
+
+## License
+
+* This software is provided for the purposes of historical research
+  and preservation.  It is not intended for commercial use, and all
+  original rights remain with their respective holders.
