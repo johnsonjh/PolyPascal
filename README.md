@@ -90,8 +90,8 @@
 * The [`PPAS.HLP.en`](PPAS.HLP.en) is an English translation of the
   `PPAS.HLP` help file which should be appropriate for both versions.
 * For DOS, overwrite `PPAS.HLP` with `PPAS.HLP.en`.
-* For CP/M-86, overwrite `PPASRC.HLP` with `PPAS.HLP.en`.
-  * NOTE: `PPAS.HLP` appears to be unused in the CP/M-86 version.
+* For CP/M-86, overwrite both `PPASRC.HLP` and `PPAS.HLP` with
+  `PPAS.HLP.en`.
 
 ### Error messages
 
