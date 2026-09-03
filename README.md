@@ -95,7 +95,7 @@
 
 * Error messages have not been translated yet, but the work is
   underway.
-* See the [`era/`](era) directory for more details and current
+* See the [`era/`](./era/) directory for more details and current
   status.
 
 ## License
