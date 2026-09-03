@@ -45,6 +45,14 @@
 
 ## Translation
 
+### Verification
+
+* The `ermexpand` utility expand all macros in an *unpacked* error message file
+  for verification.  You can run `./ermexpand 311.EN` (or `./ermexpand 311.EN`)
+  to see the expanded output (or redirect it a file for further review).
+
+### Results
+
 * The [`311.DK`](311.DK) file is the unpacked original Danish, and
   the [`311.EN`](311.EN) file is the unpacked English translation used to
   create the [`../PPAS.ERM.en`](../PPAS.ERM.en) error message file using **ERM**.

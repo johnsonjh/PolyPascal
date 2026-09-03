@@ -11,6 +11,7 @@ core-*
 /erm/*.bak
 /erm/compile_commands.json
 /erm/erm
+/erm/ermexpand
 /erm/log.pvs
 /erm/pvsreport/
 /erm/*.txt

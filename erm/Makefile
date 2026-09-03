@@ -13,7 +13,7 @@ XCFLAGS=-O
 
 ################################################################################
 
-all: erm
+all: erm ermexpand
 
 ################################################################################
 
@@ -32,14 +32,34 @@ erm: erm.c
 
 ################################################################################
 
-strip:
-	test -x erm 2> /dev/null && strip erm || :
-	test -x erm 2> /dev/null && sstrip -z erm 2> /dev/null || :
+ermexpand: ermexpand.c
+	@eval echo \
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" \
+		-o ./$@ ./ermexpand.c "$${LDFLAGS:-$(XLDFLAGS)}" \
+		2> /dev/null || :
+	@eval \
+		"$${CC:-$(XCC)}" "$${CFLAGS:-$(XCFLAGS)}" \
+		-o ./$@ ./ermexpand.c "$${LDFLAGS:-$(XLDFLAGS)}"
 
 ################################################################################
 
-clean distclean:
+strip:
+	test -x erm 2> /dev/null && strip erm || :
+	test -x erm 2> /dev/null && sstrip -z erm 2> /dev/null || :
+	test -x ermexpand 2> /dev/null && strip ermexpand || :
+	test -x ermexpand 2> /dev/null && sstrip -z ermexpand 2> /dev/null || :
+
+################################################################################
+
+clean:
 	rm -f ./erm ./erm.exe ./erm.o ./a.exe ./a.out ./core ./*.core ./core-*
+	rm -f ./ermexpand ./ermexpand.exe ./ermexpand.o
+
+################################################################################
+
+distclean: clean
+	rm -f -r ./pvsreport
+	rm -f ./compile_commands.json ./log.pvs
 
 ################################################################################
 
