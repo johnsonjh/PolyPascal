@@ -13,5 +13,6 @@ core-*
 /erm/erm
 /erm/ermexpand
 /erm/log.pvs
+/erm/*.o
 /erm/pvsreport/
 /erm/*.txt
