@@ -4,7 +4,6 @@
 
 * This is an English translation of **PolyPascal-86 3.1** for
   DOS and CP/M-86.
-
 * See
   [https://datamuseum.dk/wiki/PolyPascal](https://datamuseum.dk/wiki/PolyPascal)
   for additional PolyPascal information.
@@ -12,8 +11,9 @@
 ## Notes
 
 * The [`fetch.sh`](fetch.sh) script was used to create the [`PPCPM`](PPCPM)
-  (CP/M-86) and [`PPDOS`](PPDOS) (DOS) directories.  It is provided for
-  reference purposes.  It should not be necessary to run it again.
+  (CP/M-86) and [`PPDOS`](PPDOS) (DOS) directories.
+* It is provided for reference purposes, and it should not be necessary to run
+  it again.
 
 ## Configuration
 
@@ -24,8 +24,6 @@
   PolyPascal for your system:
 
   ```
-  $ emu2 INSTALL.CMD
-
                 PolyPascal-86 V3.11 Install Program
                           CP/M-86 version
 
@@ -72,6 +70,8 @@
   Save configuration in PPAS.CMD (YES/NO)? <YES>
   ```
 
+* Most users will want to use `A` (DOS), `B` (CP/M-86), or `C` (ANSI).
+
 * Repeat the above process to configure all three executables
   (`CMD` or `COM`) in each version:
 
@@ -81,9 +81,8 @@
   | `PPBS`     | BCD version        |
   | `PP87`     | 8087 NDP version   |
 
-* Most users will want to use `A` (DOS), `B` (CP/M-86), or `C` (ANSI).
 
-## Translations
+## Translation
 
 ### Help text
 
@@ -101,5 +100,6 @@
 ## License
 
 * This software is provided for the purposes of historical research
-  and preservation.  It is not intended for commercial use, and all
-  original rights remain with their respective holders.
+  and preservation.
+* It is not intended for commercial use, and all original rights
+  remain with their respective holders.
