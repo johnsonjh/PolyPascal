@@ -26,7 +26,7 @@
 
 /******************************************************************************/
 
-#define VERSION "1.0"
+#define VERSION "1.1"
 
 /******************************************************************************/
 
@@ -172,8 +172,7 @@ usage (const char * progname)
 #endif
   );
   (void)fprintf (stderr, " https://github.com/johnsonjh/PolyPascal\n");
-  (void)fprintf (
-      stderr,
+  (void)fprintf (stderr,
       "Copyright (c) 2026 Jeffrey H. Johnson <johnsonjh.dev@gmail.com>\n\n");
   (void)fprintf (stderr, "USAGE: %s <file.txt>\n", progname);
 }
