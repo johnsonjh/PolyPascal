@@ -26,7 +26,7 @@
 
 /******************************************************************************/
 
-#define VERSION "1.1"
+#define VERSION "1.2"
 
 /******************************************************************************/
 
@@ -170,7 +170,7 @@ usage (const char * progname)
                  " (Built %s)",
                  sqz_str (__DATE__)
 #endif
-  );
+                );
   (void)fprintf (stderr, " https://github.com/johnsonjh/PolyPascal\n");
   (void)fprintf (stderr,
       "Copyright (c) 2026 Jeffrey H. Johnson <johnsonjh.dev@gmail.com>\n\n");
