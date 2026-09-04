@@ -13,7 +13,7 @@
 ## Notes
 
 * The [`fetch.sh`](fetch.sh) script was used to create the
-  [`PPCPM`](PPCPM) (CP/M‑86) and [`PPDOS`](PPDOS) (DOS) directories.
+  [`PPCPM/`](PPCPM) (CP/M‑86) and [`PPDOS/`](PPDOS) (DOS) directories.
 * It is provided for reference purposes, and it should not be necessary
   to run it again.
 
@@ -108,9 +108,10 @@
 
 ## See also
 
-* [`PPAS_T3`](https://datamuseum.dk/wiki/Bits:30008413) is an MS‑DOS program
-  to convert PolyPascal‑86 programs so the `UPGRADE` utility shipped with
-  Borland Turbo Pascal 4.0 can successfully process them.
+* The [`PPAS_T3/`](PPAS_T3) contains the source code for a program to convert
+  PolyPascal‑86 programs so the `UPGRADE` utility shipped with Borland Turbo
+  Pascal 4.0 for DOS can successfully process them, and a copy of the
+  PolyPascal‑86 Turtlegraphics Package for the IBM PC.
 
 ## License
 

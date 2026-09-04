@@ -1,0 +1,81 @@
+
+#	PPAS		Turbo		Kommentarer indsat i teksten
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+
+# Reserverede ord:
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#1	at		Absolute
+#1	code		Inline		{ !!! Inline ‘ndret i Turbo4, se i manualen !!! }
+#1	otherwise	else
+#1	exor		xor
+#	#		@		NB: Sker automatisk i programmet (denne linje bruges derfor ikke)
+
+# Heap:
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#1	allocate	GetMem
+#1	hptr		HeapPtr
+
+# Diverse:
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#1	size		SizeOf
+#1	swint		Intr
+#1	fill		FillChar
+#1	keypress	KeyPressed
+#1	len		Length
+#1	argstr		ParamStr
+#1	argcnt		ParamCount
+#1	fmt		fmt		{ !!! fmt Ikke i Turbo 4 !!! }
+#3	program		Program		{$I ppas_t3.inc Hent andre standard erklaeringer }
+
+# Fil rutiner:
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#1	position	FilePos
+#1	length		FileSize
+#1	longlen		LongFileSize
+#1	longpos		LongFilePosition
+#1	ovpath		OvrPath
+#1	ovdrive		OvrDrive
+#1	seek		Seek	{ !!! Seek(:integer) eller LongSeek(:real) !!! }
+#1	seof		SeekEof
+#1	seoln		SeekEoln
+#1	gcdir		GetDir
+#1	iores		IOResult
+
+# Diverse vektorer
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#1	aiofs		AuxInPtr
+#1	aoofs		AuxOutPtr
+#1	ciofs		ConInPtr
+#1	coofs		ConOutPtr
+#1	csptr		ConStPtr
+#1	loofs		LstOutPtr
+#1	uiofs		UsrInPtr
+#1	uoofs		UsrOutPtr
+#1	ehofs		ErrorPtr	{ !!! Se side 377 i Turbo4 manualen (ExitProc) }
+
+# ny funktion:
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#2	pwrten		pwrten
+
+# ny gotoxy rutine. TopLeft=0,0 i PPAS, TopLeft=1,1 i Turbo3
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#2	gotoxy		PPASGotoXY
+
+# nye strenge (virker ikke mere):
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+#2	clrhom		clrhom
+#2	clreos		clreos
+#2	clreol		clreol
+#2	inslin		inslin
+#2	dellin		dellin
+#2	rvson		rvson
+#2	rvsoff		rvsoff
+#2	inton		inton
+#2	intoff		intoff
+#2	ulnon		ulnon
+#2	ulnoff		ulnoff
+#2	blkon		blkon
+#2	blkoff		blkoff
+#2	alloff		alloff
+
+# ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ

@@ -1,0 +1,903 @@
+
+
+            PolyPascal-86 Supplementary Documentation
+                  IBM PC Turtlegraphics Package
+
+                       Copyright (C) 1986
+                   PolyTech International A/S
+
+
+
+On  your  PolyPascal distribution disk you will find three  files 
+called GRAPHICS.PAS,  GRAPHICS.BIN and GRAPDEMO.PAS. They contain 
+a  complete set of Turtlegraphics routines for use in your  Poly-
+Pascal  programs enabling you to use medium and  high  resolution 
+graphics.
+
+The Turtlegraphics package supports four video adapters:
+
+    IBM Color/Graphics Adapter.
+    IBM Enhanced Graphics Adapter.
+    Hercules Monocrome Graphics Adapter.
+    Olivetti Graphics Adapter.
+
+If  your system is not equipped with one of these graphics  adap-
+ters you cannot use the Turtlegraphics package. The adapters each 
+provide different modes of operation (also called graphic modes).  
+These are listed below.
+
+IBM Color/Graphics Adapter:
+
+    320 x 200 color graphics, 4 colors.
+    320 x 200 monochrome graphics.
+    640 x 200 monochrome graphics.
+
+IBM Enhanced Graphics Adapter:
+
+    Three modes compatible with the IBM Color/Graphics Adapter.
+    320 x 200 color graphics, 16 colors.
+    640 x 200 color graphics, 16 colors.
+    640 x 350 color graphics, 16 colors.
+    640 x 350 monochrome graphics.
+
+Hercules Monocrome Graphics Adapter:
+
+    720 x 348 monochrome graphics.
+
+Olivetti Graphics Adapter:
+
+    Three modes compatible with the IBM Color/Graphics Adapter.
+    640 x 400 monochrome graphics.
+
+To  include the Turtlegraphics package in a  program,  place  the 
+following  compiler directive at the very beginning of the  prog-
+ram:
+
+                          {$I GRAPHICS}
+
+This will include the file called GRAPHICS.PAS in the compilation 
+of your source text.  Alternatively you can copy the entire GRAP-
+HICS.PAS file into your source text. GRAPHICS.PAS contains a list 
+of EXTERNAL procedure and function declarations.  The actual code 
+for  each  routine is read from a file called  GRAPHICS.BIN.  The 
+Turtlegraphics  package  is written in machine code  to  optimize 
+execution speed. 
+
+GRAPDEMO.PAS  is  a pascal source text demonstrating how  to  use 
+some of the Turtlegraphics routines.
+
+The  Turtlegraphics  package  is based on  the  "turtle"  concept 
+devised  by  S.  Papert and his coworkers  at  the  Massachusetts 
+Institute of Technology (MIT). To make graphics easy for those of 
+us who might have difficulty understanding cartesian coordinates, 
+Papert  et al.  invented the idea of a "turtle" who could walk  a 
+given  distance and turn through a specified angle while dragging 
+a pen along.  Very simple algorithms in this system (which  could 
+be called "relative polar coordinates") can give more interesting 
+images  than an algorithm of the same length in cartesian coordi-
+nates.
+
+The  following procedures and functions are provided by the  Tur-
+tlegraphics package:
+
+    crtmode             Set CRT mode
+    textmode            Return to text mode
+    window              Define window coordinates
+    background          Set background color
+    palette             Set color palette
+    egapalette          Set color palette for Enhanced Graphics
+    pencolor            Set pen color
+    colormode           Define color mapping
+    fillscreen          Fill screen
+    aspect              Set aspect ratio
+    turtlehome          Move turtle to home position
+    moveto              Move turtle
+    moveby              Move turtle relative
+    move                Move turtle by distance
+    lineto              Draw line
+    lineby              Draw line relative
+    line                Draw line by distance
+    turnto              Turn turtle absolute
+    turn                Turn turtle relative
+    plotat              Plot point
+    plotby              Plot point relative
+    paint               Paint area
+    arc                 Draw arc
+    circle              Draw circle
+    pattern             Define fill pattern
+    rectfill            Fill rectangle with pattern
+    getpic              Get picture image from screen
+    putpic              Put picture image to screen
+    point               Return color of dot
+    turtlex             Return turtle X-coordinate
+    turtley             Return turtle Y-coordinate
+    turtleang           Return turtle angle
+    workpage            Set working page
+    disppage            Set display page
+    copypage            Copy between pages
+    writestring         Write text to graphics screen
+    charstyle           Set character style
+    charsize            Set character size
+    charfont            Set character font
+
+Each routine is described in detail below.
+
+The Turtlegraphics routines operate on integer coordinates. Thus, 
+the  coordinate range is -32768..32767.  The graphics screen is a 
+rectangle with the origin (x,y) = (0,0) at the LOWER LEFT corner. 
+The  upper right corner has the  coordinates  (XMAX,YMAX),  where 
+XMAX  and YMAX are the horizontal and vertical resolutions of the 
+screen less one.
+
+All Turtlegraphics routines operate within a window.  By  default 
+the  window  is set to the entire graphic image,  but  there  are 
+occations when it is handy to use only part of the screen,  while 
+safeguarding the rest from accidental use.  For this purpose, the 
+Turtlegraphics  package allow you to define any rectangle on  the 
+screen  as  the  window.
+
+When you specify the coordinates of a window,  (0,0)  corresponds 
+to the lower left corner of the screen. All other coordinates are 
+relative  to the window,  and (0,0) corresponds to the lower left 
+corner  of the window.  When an object is drawn using any of  the 
+Turtlegraphics routines, it is automatically clipped so that only 
+the  portion which lies within the current window  is  displayed. 
+Points whose coordinates are not within the current window,  even 
+those  points that would not be on the screen at all,  are  legal 
+but ignored.
+
+It is possible to mix text and graphics on the screen. By default 
+the  8x8  font  located  in the ROM-BIOS is  used  for  character 
+drawing.  This  font  gives you 40 x 25 characters in 320  x  200 
+mode, 80 x 25 characters in 640 x 200 mode, 80 x 43 characters in 
+640 x 350 mode, and 80 x 50 characters in 640 x 400 mode. You may 
+yourself define and install other fonts.
+
+The IBM Color/Graphics Adapter and the Olivetti Graphics  Adapter 
+provide only one display page.  The IBM Enhanced Graphics Adapter 
+provides up to 8 display pages depending on the mode selected and 
+the  amount of memory it has installed.  The Hercules  Monochrome 
+Graphics  Adapter provides one or two display pages depending  on 
+the mode selected.
+
+Before  calling any of the Turtlegraphics routines you must  call 
+the crtmode procedure to select a graphics mode.  If you call one 
+of  the routines before calling crtmode,  the package performs  a 
+fake division by zero to interrupt the program.  You may then use 
+PolyPascal's FIND command to locate the graphics call that caused 
+the error.
+
+
+Function:   Set CRT mode.
+
+Header:     PROCEDURE crtmode(m: integer);
+
+Remarks:    This procedure is used to select a graphics mode. The 
+            following modes are available:
+
+              0 = 40 x 25 Black and White.
+              1 = 40 x 25 Color.
+              2 = 80 x 25 Black and White.
+              3 = 80 x 25 Color.
+              4 = 320 x 200 Color Graphics.
+              5 = 320 x 200 Monochrome Graphics.
+              6 = 640 x 200 Monochrome Graphics.
+              7 = 80 x 25 Black and White (Monochrome Display).
+              8 = 720 x 348 Monochrome Graphics on Hercules.
+              9 = 720 x 348 Monochrome Graphics on Hercules.
+             13 = 320 x 200 Enhanced Color Graphics.
+             14 = 640 x 200 Enhanced Color Graphics.
+             15 = 640 x 350 Enhanced Monochrome Graphics.
+             16 = 640 x 350 Enhanced Color Graphics.
+             64 = 640 x 400 Olivetti Monochrome Graphics.
+             72 = 640 x 400 Olivetti Monochrome Graphics.
+
+            The  IBM Color/Graphics Adapter supports  modes  0-6. 
+            The  IBM Enhanced Graphics Adapter supports modes 0-7 
+            and  13-16 (note that mode 16 works properly only  on 
+            adapters  with  the Graphics  Memory  Expansion  Card 
+            installed).  The Hercules Monochrome Graphics Adapter 
+            supports modes 8 and 9. The Olivetti Graphics Adapter 
+            supports modes 0-7, 64 and 72.
+
+            Mode  8 corresponds to the FULL Hercules system  with 
+            two  display pages.  Mode 9 corresponds to  the  HALF 
+            Hercules system with only one display page. This mode 
+            is  used when you have an IBM Color/Graphics  Adapter 
+            installed in addition to the Hercules Adapter.
+
+            Do  not  try  to select a graphics mode that  is  not 
+            supported by your graphics adapter(s).
+
+            When crtmode is called the window is reset to include 
+            the  entire display and the pen color is set  to  the 
+            highest possible value (1, 3, or 15) which is normal-
+            ly  white.  Furthermore the turtle is moved to  (0,0) 
+            and turned to 0.
+
+            All of the routines described in the following do not 
+            operate in modes 0-3 and 7.
+
+
+Function:   Return to text mode.
+
+Header:     PROCEDURE textmode;
+
+Remarks:    This  procedure resets the display to text  mode.  It 
+            selects CRT mode 1,  3 or 7 according to the  adapter 
+            switch settings in the computer.
+
+
+Function:   Define window coordinates.
+
+Header:     PROCEDURE window(x1,y1,x2,y2: integer);
+
+Remarks:    The  window  is  the area on the screen that  may  be 
+            manipulated  by the Turtlegraphics routines.  By  de-
+            fault  the  window is the entire  screen.  Everything 
+            outside  the  window  remains  unchanged  during  all 
+            graphic operations until it again becomes part of the 
+            window.  (x1,y1) and (x2,y2) are the opposite corners 
+            of the window (no special ordering is required).  The 
+            coordinates  are clipped to the physical size of  the 
+            screen  if they are out of  range,  so  (0,0,999,999) 
+            will always select the entire display.  The turtle is 
+            moved to (0,0) and turned to 0 in the new window.
+
+
+Function:   Set background color.
+
+Header:     PROCEDURE background(c: integer);
+
+Remarks:    This  procedure  selects the  background  color  when 
+            operating in modes 4 and 5, and the border color when 
+            operating in modes 13 and 14.  For all other modes, a 
+            call  to  background has no effect.  c is an  integer 
+            between  0 to 15 which selects a color  according  to 
+            the table below:
+
+              0 = Black.                  8 = Dark Gray.
+              1 = Blue.                   9 = Light Blue.
+              2 = Green.                 10 = Light Green.
+              3 = Cyan.                  11 = Light Cyan.
+              4 = Red.                   12 = Light Red.
+              5 = Magenta.               13 = Light Magenta.
+              6 = Brown.                 14 = Yellow.
+              7 = Light Gray.            15 = White.
+
+            The background color always defaults to black.
+
+
+Function:   Set color palette.
+
+Header:     PROCEDURE palette(c: integer);
+
+Remarks:    This  procedure is used to select the  color  palette 
+            when operating in modes 4 and 5. For all other modes, 
+            a  call  to palette has no effect.  c is  an  integer 
+            between  0  and 3 which selects the foreground  color 
+            palette according to the table below:
+
+              0 = Light Green, Light Red and Yellow colors.
+              1 = Light Cyan, Light Magenta and White colors.
+              2 = Green, Red and Brown colors.
+              3 = Cyan, Magenta and Light Gray colors.
+
+            The default palette is 1. The screen can only display 
+            the colors of one palette.  Thus,  all foreground co-
+            lors  on  the  screen change instantly  when  an  new 
+            palette is selected.
+
+
+Function:   Set enhanced graphics color palette.
+
+Header:     PROCEDURE egapalette(var p: paletterec);
+
+Remarks:    This  procedure  is used to select the color  palette 
+            when operating in modes 13,  14 and 16. For all other 
+            modes,  a  call to egapalette has no effect.  p is  a 
+            variable  of  type paletterec,  which is  defined  in 
+            GRAPHICS.PAS:
+
+              TYPE paletterec =
+                RECORD
+                  color: ARRAY[0..15] of byte;
+                  overscan: byte;
+                END;
+
+            The default palette used when crtmode of 13 or 14 
+            is called is:
+            const
+              defaultegapalette1314: PaletteRec=
+               (Color:(0,1,2,3,4,5,6,7,56,57,58,59,60,61,62,63);
+                Overscan:0);
+
+            The default palette used when crtmode of 16 is called 
+            is:
+            const
+              defaultegapalette16: PaletteRec=
+               (Color:(0,1,2,3,4,5,20,7,56,57,58,59,60,61,62,63);
+                Overscan:0);
+
+            The screen can only display the colors of one  palet-
+            te.  Thus,  all colors on the screen change instantly 
+            when  an new palette is selected.  The enhanced grap-
+            hics adapter can display 16 colors at one time from a 
+            palette of 64.  A color can be use for more than  one 
+            palette  register,  enabling you to make quick screen 
+            update.  One  way  of doing this is  by  selecting  a 
+            palette  of  16 times color 0,  make the drawing  and 
+            when finished set the palette back to  default,  for-
+            cing the drawing to be visible.
+
+            The  Overscan color is what will be displayed on  the 
+            border  of  the screen,  but only in modes  with  200 
+            lines (crtmode 3, 4, 13 and 14).
+
+
+Function:   Set pen color.
+
+Header:     PROCEDURE pencolor(c: integer);
+
+Remarks:    c is an integer between 0 and 1, 0 and 3, or 0 and 15 
+            depending  on the current mode.  It selects the fore-
+            ground color, i.e. the color to be used for lines and 
+            dots drawn by the lineto, lineby, line, plotat, plot-
+            by,  arc, circle, writestring  and rectfill routines. 
+            For  modes 6,  8,  9,  64 and 72,  c selects a  color 
+            according to the table below:
+
+              0 = Black.
+              1 = White.
+
+            For modes 4 and 5, c selects a color according to the 
+            table below:
+
+              0 = Background color set by background.
+
+              1 = Light Green (palette 0) or 
+                  Light Cyan (palette 1) or
+                  Green (palette 2) or 
+                  Cyan (palette 3).
+
+              2 = Light Red (palette 0) or
+                  Light Magenta (palette 1)
+                  Red (palette 2)
+                  Magenta (palette 3).
+
+              3 = Yellow (palette 0) or
+                  White (palette 1) or
+                  Brown (palette 2) or
+                  Light Gray (palette 3).
+
+            For modes 13,  14 and 16, c selects a color according 
+            to the table below:
+
+              0 = Black.                  8 = Dark Gray.
+              1 = Blue.                   9 = Light Blue.
+              2 = Green.                 10 = Light Green.
+              3 = Cyan.                  11 = Light Cyan.
+              4 = Red.                   12 = Light Red.
+              5 = Magenta.               13 = Light Magenta.
+              6 = Brown.                 14 = Yellow.
+              7 = Light Gray.            15 = White.
+
+
+Function:   Define color mapping.
+
+Header:     PROCEDURE colormode(m: integer);
+
+Remarks:    When  plotting  the  current pencolor can be  use  to 
+            modify the screen in four different ways according to 
+            the colormode:
+
+              0 = Replace with color
+              1 = AND color with screen contents
+              2 = OR color with screen contents
+              3 = XOR color with screen contents
+
+            Mode 0 is default and will be used when color  repla-
+            cing is wanted.
+
+
+Function:   Fill screen.
+
+Header:     PROCEDURE fillscreen(c: integer);
+
+Remarks:    Fillscreen  fills  the entire window with  the  color 
+            specified by c. c is an integer with the same defini-
+            tion  of the colors associated with it as for  penco-
+            lor,  please  refer  to the description of  pencolor. 
+            When  using colormode in different  modes  fillscreen 
+            can make some dramatic effects.  F.ex. when colormode 
+            is  set for exor mode the screen can be  inverted  by 
+            inverting  some of the colorbits.  When colormode  is 
+            set  for 'and' or 'or' mode colorbits can be subtrac-
+            ted or added from the screen.
+
+
+Function:   Set aspect factor.
+
+Header:     PROCEDURE aspect(aspectx,aspecty: integer);
+
+Remarks:    Setup aspect factor to be used for circle,  arc, line 
+            and move procedures.  Default aspect ratio is 1:1. An 
+            aspect  ratio  of 6:5 (aspect(6,5)) in  medium  reso-
+            lution or 12:5 in high resolution will normaly make a 
+            nicer  looking drawing.  When talking about  distance 
+            (line  length  or  circle  radius),   the  unmodified 
+            distance  is  used  for  the  coordinate  having  the 
+            greatest aspect factor, while the other coordinate is 
+            scaled.  Assume  that  aspecty is less than  aspectx, 
+            then  a  circle with radius R will be  drawn  with  a 
+            width of 2*R and a height of 2*R*aspecty/aspectx.
+
+
+Function:   Move turtle home.
+
+Header:     PROCEDURE turtlehome;
+
+Remarks:    The  turtle is moved to center if the current window, 
+            i.e.  turtlex becomes (x2-x1+1)/2 and turtley becomes 
+            (y2-y1+1)/2, where (x1,y1) and (x2,y2) is the parame-
+            ters from the last window call.  The turtle is turned 
+            to  direction 0.  turtlehome is usefull  for  getting 
+            information  about the current window  size.  Suppose 
+            the  window always is sized in even steps,  then  the 
+            following example can give the window size:
+
+                turtlehome;
+                windowxsize:=turtlex*2;
+                windowysize:=turtley*2;
+
+
+Function:   Move turtle.
+
+Header:     PROCEDURE moveto(x,y: integer);
+
+Remarks:    The turtle is moved to (x,y).
+
+
+Function:   Move turtle relative.
+
+Header:     PROCEDURE moveby(dx,dy: integer);
+
+Remarks:    The  turtle is moved by (dx,dy) relative to its  cur-
+            rent position.
+
+
+Function:   Move turtle by distance.
+
+Header:     PROCEDURE move(dist: integer);
+
+Remarks:    The turtle is moved the distance given by dist in the 
+            current direction. If dist is positive, the turtle is 
+            moved forwards.  If dist is negative,  the turtle  is 
+            moved backwards.
+
+            Note that the declaration of this procedure  prevents 
+            you  from using PolyPascal's built-in move procedure. 
+            Should  you wish to use both the Turtlegraphics  move 
+            procedure  and  the PolyPascal move  procedure  in  a 
+            program, then change the move identifier in the GRAP-
+            HICS.PAS file to something else, e.g. movedist.
+
+
+Function:   Draw line.
+
+Header:     PROCEDURE lineto(x,y: integer);
+
+Remarks:    The turtle is moved to (x,y). While it moves it draws 
+            a line using the current pen color.
+
+
+Function:   Draw line relative.
+
+Header:     PROCEDURE lineby(dx,dy: integer);
+
+Remarks:    The  turtle is moved by (dx,dy) relative to its  cur-
+            rent position.  While it moves it draws a line  using 
+            the current pen color.
+
+
+Function:   Draw line by distance.
+
+Header:     PROCEDURE line(dist: integer);
+
+Remarks:    The turtle is moved the distance given by dist in the 
+            current  direction.  While  it moves it draws a  line 
+            using the current pen color.
+
+
+Function:   Turn turtle absolute.
+
+Header:     PROCEDURE turnto(angle: integer);
+
+Remarks:    The turtle is turned to the specified angle. If angle 
+            is less than zero or greater than or equal to 360, it 
+            is  converted into a value between 0 and  359.  0  is 
+            exactly  to the right,  and counterclockwise rotation 
+            represents increasing angles.
+
+
+Function:   Turn turtle relative.
+
+Header:     PROCEDURE turn(angle: integer);
+
+Remarks:    The  turtle is turned angle degrees from its  current 
+            direction.  Positive values turn the turtle  counter-
+            clockwise. The new current direction is adjusted to a 
+            value between 0 and 359.
+
+
+Function:   Plot point.
+
+Header:     PROCEDURE plotat(x,y: integer);
+
+Remarks:    Plots a point in the current pen color at (x,y).  The 
+            turtle is not moved.
+
+
+Function:   Plot point relative.
+
+Header:     PROCEDURE plotby(dx,dy: integer);
+
+Remarks:    Plots  a point at the current position  plus  (dx,dy) 
+            using the current pen color. The turtle is not moved.
+
+
+Function:   Paint area.
+
+Header:     PROCEDURE paint(x,y,fc,bc: integer);
+
+Remarks:    Fills in an area on the screen with the color  speci-
+            fied  by  fc.  (x,y) are the coordinates of  a  point 
+            within  the  area to be painted.  bc is the  boundary 
+            color, i.e. the color of the edges of the area. Paint 
+            has  no effect if the starting point already has  the 
+            boundary  color.  If the shape to be painted  is  not 
+            closed, the foreground color will "leak out" and fill 
+            the entire window. On the other hand, if the shape is 
+            closed  but the starting point is outside  it,  paint 
+            will  fill the surrounding area.  Paint never  paints 
+            beyond  the current window.  Paint will always assume 
+            that colormode is set for replace mode.
+
+
+Function:   Draw arc.
+
+Header:     PROCEDURE arc(angle,radius: integer);
+
+Remarks:    The  turtle is moved in an arc of the specified angle 
+            with the specified radius.  The turtle always  starts 
+            off  in the current direction.  If angle is positive, 
+            it  turns left (counterclockwise) while  drawing  the 
+            arc. If the angle is negative, it turns right (clock-
+            wise).
+
+
+Function:   Draw circle.
+
+Header:     PROCEDURE circle(x,y,radius: integer);
+
+Remarks:    Draws  a  circle.  (x,y) are the coordinates  of  the 
+            center of the circle,  and radius is the radius.  The 
+            circle  is drawn using the current pen color and  the 
+            current aspect ratio. Please refer to the description 
+            of  aspect.   The turtle's position and direction are 
+            not affected.
+
+
+
+Function:   Define fill pattern.
+
+Header:     PROCEDURE pattern(VAR p);
+
+Remarks:    This  procedure  is used to define the  fill  pattern 
+            used by the rectfill routine.  rectfill does not just 
+            fill all pixels with a given color.  Instead it loads 
+            a  user defined pattern into the specified area.  The 
+            pattern  is an 8 x 8 dot matrix,  and it  is  defined 
+            through a call to pattern. The p parameter must be an 
+            array variable with 8 bytes. Each byte corresponds to 
+            a  horizontal line in the pattern,  and each bit cor-
+            responds to a pixel.  When rectfill fills an area, it 
+            actually fills it with 8 x 8 pattern matrices, except 
+            for  the  borders,  where appropriate slices  of  the 
+            pattern are used. Below follows some examples of fill 
+            patterns and their hex equivalents:
+
+              ::OO::::::OO::::    $44          Slanted lines.
+              OO::::::OO::::::    $88
+              ::::::OO::::::OO    $11
+              ::::OO::::::OO::    $22
+              ::OO::::::OO::::    $44
+              OO::::::OO::::::    $88
+              ::::::OO::::::OO    $11
+              ::::OO::::::OO::    $22
+
+              OO::OO::OO::OO::    $AA          Grey pattern.
+              ::OO::OO::OO::OO    $55
+              OO::OO::OO::OO::    $AA
+              ::OO::OO::OO::OO    $55
+              OO::OO::OO::OO::    $AA
+              ::OO::OO::OO::OO    $55
+              OO::OO::OO::OO::    $AA
+              ::OO::OO::OO::OO    $55
+
+              ::::::::::::OOOO    $03          Cross hatch.
+              OO::::::::OO::::    $84
+              ::OO::::OO::::::    $48
+              ::::OOOO::::::::    $30
+              ::::OOOO::::::::    $30
+              ::OO::::OO::::::    $48
+              OO::::::::OO::::    $84
+              ::::::::::::OOOO    $03
+
+            To define the "Cross hatch" pattern in a program, the 
+            following construct may be used:
+
+              CONST
+                cross: ARRAY[0..7] OF byte =
+                ($03,$84,$48,$30,$30,$48,$84,$03);
+
+            To activate the pattern,  simply pass the cross iden-
+            tifier to the pattern routine.
+
+
+Function:   Fill rectangle with pattern.
+
+Header:     PROCEDURE rectfill(x1,y1,x2,y2: integer);
+
+Remarks:    Rectfill fills an area on the screen with the pattern 
+            defined  by the last call to the  pattern  procedure. 
+            The  pattern is replicated both horizontally and ver-
+            tically to fill the entire area.  Bits of value  zero 
+            will not be written,  whereas bits of value 1 will be 
+            written  using  the current  pencolor.  The  turtle's 
+            position and direction are not affected.
+
+
+Function:   Get picture image.
+
+Header:     PROCEDURE getpic(VAR buffer; x1,y1,x2,y2: integer);
+
+Remarks:    Getpic  transfers the contents of a rectangular  area 
+            on  the  graphics screen into a buffer.  The area  is 
+            defined by its opposite corners (x1,y1) and  (x2,y2). 
+            Buffer is a variable of any type.  The minimum buffer 
+            size  in bytes required to store the image is  calcu-
+            lated from:
+
+            Four color mode (crtmode 4 and 5):
+
+              size = ((width+3) DIV 4)*height+6
+
+            Two color mode (crtmode 6, 8, 9, 64 and 72):
+
+              size = ((width+7) DIV 8)*height+6
+
+            Sixteen color mode (crtmode 13, 14, 15 and 16):
+
+              size = ((width+1) DIV 2)*height+6
+
+            where:
+
+              width = abs(x1-x2)+1  and  height = abs(y1-y2)+1
+
+            Note  that it is up to the programmer to insure  that 
+            the  buffer is large enough to accomodate the  entire 
+            transfer.  The first 6 bytes of the buffer constitute 
+            a  three  word header  (three  integers).  After  the 
+            transfer,  the  first word contains 1,  2 or 4 giving 
+            the bitcount pr. pixel. The second word  contains the 
+            width  of  the  image and  third  word  contains  the 
+            height. The remaining bytes contain the data. Data is 
+            stored   with   the  leftmost  pixels  in  the   most 
+            significant  bits of the bytes.  At the end  of  each 
+            row, the remaining bits of the last byte are skipped. 
+            The turtle's position and direction are not affected.
+
+
+Function:   Put picture image.
+
+Header:     PROCEDURE putpic(VAR buffer; x,y: integer);
+
+Remarks:    Putpic  transfers a picture image from a buffer  onto 
+            the screen. (x,y) define the lower left corner of the 
+            rectangular picture area. buffer is a variable of any 
+            type,  which has been initialized by a previous  call 
+            to  getpic.  Each bit in the buffer is converted to a 
+            color according to the colormode before it is written 
+            to  the screen.  The turtle's position and  direction 
+            are not affected.
+
+
+Function:   Return color of dot.
+
+Header:     FUNCTION point(x,y: integer): integer;
+
+Remarks:    Returns the color of the dot at (x,y),  i.e.  0-3 for 
+            320 x 200 graphics,  0-1 for 640 x 200 graphics or 0-
+            15  for enhanced graphics.  If (x,y) is  outside  the 
+            window, point returns -1.
+
+
+Function:   Return turtle x-coordinate.
+
+Header:     FUNCTION turtlex: integer;
+
+Remarks:    Returns the turtle's x-coordinate.
+
+
+Function:   Return turtle y-coordinate.
+
+Header:     FUNCTION turtley: integer;
+
+Remarks:    Returns the turtle's y-coordinate.
+
+
+Function:   Return turtle angle.
+
+Header:     FUNCTION turtleang: integer;
+
+Remarks:    Returns  the direction in which the turtle is moving. 
+            The returned angle is always between 0 and 359.
+
+
+Function:   Set working page
+
+Header:     PROCEDURE workpage(p: integer);
+
+Remarks:    Set  working  page  to page p.  If page p is  to  big 
+            nothing happens.
+
+
+Function:   Set display page
+
+Header:     PROCEDURE disppage(p: integer);
+
+Remarks:    Set  display  page  to page p.  If page p is  to  big 
+            nothing happens.
+
+
+Function:   Copy from page to page
+
+
+Header:     PROCEDURE copypage(p1,p2: integer);
+
+Remarks:    Copy  from screen buffer p1 to screen buffer  p2.  If 
+            either p1 or p2 is to big no copying is done.
+
+
+Function:   Write text to graphics screen.
+
+Header:     PROCEDURE writestring(s: str_80);
+
+Remarks:    s is a string expression of up to 80 characters.  The 
+            string  is placed on the screen with left side of the 
+            baseline  on the current turtlex position.  The base-
+            line is the line on which the characters are  placed. 
+            Some  characters  like  'g' will be drawn  below  the 
+            baseline. The current X and Y position is incremented 
+            for each character in the string according to what is 
+            defined with the charfont procedure. writestring uses 
+            the character style and size defined by the last call 
+            to  charstyle,  charsize  or  charfont.  The  default 
+            graphics  font  used  is set for  8x8  characters  in 
+            normal style and with a size of one.  Other fonts can 
+            be installed, see the charfont procedure.
+
+
+Function:   Set character style
+
+Header:     PROCEDURE charstyle(Style: INTEGER);
+
+Remarks:    Set character style for normal or italic:
+
+                Style=0: Normal.
+                Style=1: Italic
+
+            Selecting  normal  style will force characters to  be 
+            drawn  within a rectangle,  while italic  will  force 
+            each  second  line of the character to be  moved  one 
+            position  to the right above the baseline and to  the 
+            left below the baseline.
+
+
+Function:   Set character size
+
+Header:     PROCEDURE charsize(Size: INTEGER);
+
+Remark:     Size is a scaling factor for each character.  If size 
+            is  two,  characters will be drawn with double height 
+            and width etc.
+
+
+Function:   Set character font, style and size
+
+Header:     PROCEDURE charfont(Var Font);
+
+Remark:     The  default  graphics font used is  located  in  the 
+            BIOS-ROM  and  is  set for 8x8  charactes  in  normal 
+            style.  Other  fonts  can  be  installed  using  this 
+            procedure.  Font  is a record defined in GRAPHICS.PAS 
+            as:
+
+            RECORD
+              Table: ^byte;     { Pointer to Font $F000:$FA6E }
+              Bitoffset,        { bit offset                0 }
+              Bitcount,         { bit/character            64 }
+              Width,            { character width           8 }
+              Height,           { height                    8 }
+              Ascent,           { topline-baseline          7 }
+              Size,             { scaling factor            1 }
+              Style,            { 0=normal, 1=Italic        0 }
+              DeltaX,           { turtle increment X        8 }
+              DeltaY: integer); { turtle increment Y        0 }
+            END;
+
+            The default font can be set with:
+
+            charfont(romfont);
+
+            When  charfont is called,  style and size is  initia-
+            lized.
+
+            Bitcount is the number of bits for each character  in 
+            the  font definition.  Bitcount will normaly be equal 
+            to  width*height,  but can be different in  order  to 
+            make  each  character definition start  on  byte/word 
+            boundary.
+
+            Bitoffset  is the number of bits to skip,  normaly 0. 
+            If  the first character defined in the  fonttable  is 
+            for a space (chr(32)) then bitoffset will be 32 times 
+            bitcount.
+
+            Width and height are the size of the box in which the 
+            character will be drawn.
+
+            Ascent is the number of lines above the baseline. The 
+            baseline has the y coordinate turtley.
+
+            The file GRAP9X14.FON on the diskette contains a 9 by 
+            14  character  set  (the one used  for  the  Hercules 
+            graphics card). The next example shows a procedure to 
+            install this font:
+
+            PROCEDURE initfont9x14;
+              PROCEDURE f9x14; EXTERNAL 'grap9x14.fon';
+            var font9x14: font;
+
+            BEGIN
+              WITH font9x14 do begin
+                table:=ptr(cseg,ofs(f9x14));
+                bitoffset:=0;   { first character is chr(0) }
+                bitcount:=8*16; { 8x16 }
+                width:=8;       { Size 9x14 }
+                height:=14;
+                ascent:=11;     { 11 lines from top to baseline }
+                size:=1;        { Small }
+                style:=0;       { Normal style }
+                deltax:=9;      { Increment turtle position }
+                deltay:=0;      { by (9,0) }
+              END;
+              charfont(font9x14);
+            END;
+
+            When including the file GRAP9X14.FON in your program, 
+            4 Kbytes of your program space will be used to  store 
+            the data.
+
+            To  change  the character fonts you  can  modify  the 
+            GRAP9X14.FON file. This file contains a definition of 
+            the  entire  IBM PC character set  (256  characters). 
+            Each character occupies 16 bytes,  but only the first 
+            14 are used. The first byte of a character definition 
+            corresponds to the top scan line, and the most signi-
+            ficant  bit  in  a byte corresponds to  the  leftmost 
+            pixel.  To find the address at which a specific char-
+            acter definition is stored in the file, simply multi-
+            ply its ASCII value by 16.
+

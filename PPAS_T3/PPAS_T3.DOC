@@ -1,0 +1,138 @@
+
+    PolyPascal til Turbo pascal konverter
+
+
+    Program  og  unit's  til  brug  ved  konvertering  af  PolyPascal 
+    kildetekster til Turbo pascal version 4 kildetekster.
+
+    Dette  program (PPAS_T3) vil ‘ndre de n›gle ord,  der ikke falder 
+    sammen i PolyPascal og Turbo pascal.  Efter at PPAS_T3 programmet 
+    er  brugt,  da kan man bruge UPGRADE  programmet,  der  medf›lger 
+    Turbo pascal version 4 programmet.
+
+        PPAS_T3 g›r et simpelt stykke arbejde.
+
+        UPGRADE fors›ger at lave units ud af ens include filer etc.
+
+    For  at lette omskrivningen af grafik programmer,  da er der ogs† 
+    lavet grafik moduler (units), der implementerer de grafik rutiner 
+    der ligger p† PolyPascal disketten.
+
+
+    P† disketten medf›lger disse filer i underbiblioteket PPAS:
+
+    PPAS_T3.DOC    Denne fil.
+
+    PPAS_T3.PAS    Konverterings  program der ‘ndrer de n›gleord  der 
+                   er forskellige i PolyPascal og Turbo pascal.  Skal 
+                   kompileres med PolyPascal kompileren.
+
+    PPAS_T3.INC    Include fil der tilf›jer pwrten funktionen.  Denne 
+                   er ukendt i Turbo pascal. Desuden inkluderes tomme 
+                   strenge  for clrhom,  clreol etc.  Denne fil burde 
+                   v‘re  lavet  som et unit n†r den skal  bruges  med 
+                   Turbo pascal version 4.  Lad det v‘re en ›velse at 
+                   lave den om til dette.
+
+    PPAS_T3.DAT    Kontrol  fil der indeholder en liste af de ord der 
+                   skal konverteres.  Dette er en tekstfil,  der  kan 
+                   rettes til efter egne ›nsker.
+
+    MAKEBATF.PAS   Pascal  hj‘lpe  program,  der udfra en  biblioteks 
+                   listning (DIR) kan lave a .BAT fil.  Dette program 
+                   er  velegnet hvis man har mange pascal  filer  der 
+                   skal konverteres.
+
+    HERCULES.PAS
+    HERCULES.TPU   Grafik driver for hercules grafik kortet.
+
+    HERCDEMO.PAS   Demo program for hercules.
+
+    GRAPHICS.PAS
+    GRAPHICS.TPU   Grafik driver for CGA grafik kortet.
+
+    GRAPDEMO.PAS   Demo program for CGA grafik.
+
+    GRAPHEGA.PAS
+    GRAPHEGA.TPU   Grafik  driver for CGA,  EGA og  hercules  grafik. 
+                   Denne  er ikke kompatibel med GRAPHICS grafik dri-
+                   veren.  PolyTech har udviklet denne pakke for  EGA 
+                   grafik,  og  har  sendt den til de,  der har  vist  
+                   interesse for EGA grafik.
+
+    GRAPHEGA.DOC   Dokumentation til GRAPHEGA for de der ikke har set 
+                   GRAPHEGA  f›r.  Denne  dokumentation  er  u‘ndret, 
+                   derfor er den ikke korrekt p† alle punkter (stadig 
+                   PolyPascal syntax etc).
+
+    GRAP9x14.FON   9 * 14 font for brug i GRAPEGA.PAS.
+
+    GRAPHEDE.PAS   Demo program for EGA grafikken.
+
+    Grafik  modulerne (units) og PPASConsole leveres med .TPU og .PAS 
+    filer.  Kun .TPU filerne skal bruges. .PAS filerne kan bruges som 
+    dokumentation for deres kaldem†de.  De kan ikke kompileres,  idet 
+    den n›dvendige assembler interface ikke er inkluderet.
+
+    Alle tre grafik pakker definerer en window procedure. Crt unit'et 
+    g›r  det  samme.  Da grafik modulet bliver brugt senere  end  Crt 
+    modulet,  da  er  window i Crt modulet ikke direkte  tilg‘ngelig. 
+    Dette  kan modvirkes ved at der ved hvert kald til window  i  Crt 
+    unit'et skrives s†ledes:  Crt.Window(...); Se side 206, "Scope of 
+    Interface and Standard Identifiers".
+
+
+    PPAS_T3.DAT filen:
+
+    Denne fil beskriver for PPAS_T3.PAS programmet,  hvilke  n›gleord 
+    der skal ‘ndres i PPAS teksten, for at kunne kompileres med Turbo
+    pascal kompileren version 3 eller 4.
+
+    Alle linjer der har betydning starter med to styre tegn:  #1,  #2 
+    eller #3. Kommentar linjer starter med de to tegn "# ".
+
+    Alle  linjer af type #1,  #2 eller #3 best†r af 2 eller 3 enheder 
+    p† hver linje.
+
+    #1      enhed1          enhed2          enhed3
+
+    enhed1 er n›gleordet i PolyPascal.
+    enhed2 er n›gleordet i Turbo pascal.
+    enhed3 er en kommantar, der vil blive indsat p† n‘ste linje i den 
+    konverterede tekst.
+
+    PPAS_T3 programmet vil hver gang det finder et enhed1 ord i kilde 
+    teksten, erstatte det med enhed2 ordet. Hvis et enhed3 eksisterer 
+    for dette ord,  da vil enhed3 blive indsat p† n‘ste linje.
+
+    Gruppe #1 ord angiver de PPAS ord der blot skal konverteres.
+    Gruppe #2 ord fungerer ligesom gruppe #1 ord.  Desuden gives  der 
+    statestik  for hvor mange gange ordet er blevet brugt (hvis  mere 
+    end 0 gange).
+    Gruppe #3 ord funger ogs† som gruppe #1 ord. Desuden gives der en 
+    advarsel hvis ordet ikke er brugt (program).
+
+
+    Brug af konverterings programmet.
+
+    1.   Kopiere   disketten   (kun  underbibliotek  PPAS)   ind   p† 
+         harddisken, eller lav en backup p† en ny diskette.
+
+    2.   Hvis der skal konverteres mange filer, da l‘s vejledningen i 
+         MAKEBATF.PAS.
+
+    3.   ’ndre linjen: CONST DiscFile='PPAS_T3.DAT';
+         i PPAS_T3.PAS til det ›nskede. f.eks. 'C:\PPAS\PPAS_T3.DAT'.
+
+    4.   Overs‘t PPAS_T3.PAS til disk (brug P kommandoen).
+
+    5.   Udf›r  f›lgende linje for alle de kilde  tekster,  der  skal 
+         konverteres,  eller brug MAKEBATF.PAS med hvilken disse lin-
+         jer kan laves med PPAS editoren.
+         PPAS_T3 gammel_fil ny_fil
+         hvor gammel_fil er navnet p† PolyPascal teksten og
+         hvor  ny_fil  er  navnet  p† den nye fil  til  Turbo  pascal 
+         teksten (B›r ikke eksistere p† forh†nd).
+
+    6.   Brug  UPGRADE.EXE  programmet,  der medf›lger  Turbo  pascal 
+         version 4.
