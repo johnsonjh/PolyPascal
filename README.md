@@ -2,13 +2,20 @@
 
 ## Overview
 
-* This is an English translation of **PolyPascal‑86 V3.11** for
-  DOS and CP/M‑86.
+* This is an English translation of **PolyPascal‑86 V3.11** (the final version)
+  for DOS and CP/M‑86.
+* PolyPascal was the direct predecessor of Borland Turbo Pascal.
 * See
   [https://datamuseum.dk/wiki/PolyPascal](https://datamuseum.dk/wiki/PolyPascal)
   for additional PolyPascal information.
+
+## Documentation
+
 * Complete [PDF documentation](https://rc700.dk/files/documentation/PICCOLINE_PolyPascal_Brugervejledning_1985.pdf)
   is available (in Danish).
+* For English‑language documentation, the Borland
+  [Turbo Pascal 1.0](https://bitsavers.org/pdf/borland/turbo_pascal/Turbo_Pascal_Reference_Manual_Feb84.pdf)
+  manual should adequately describe the language.
 
 ## Notes
 
