@@ -91,7 +91,7 @@
 
 ### Error messages
 
-* [`PPAS.ERM.en`](PPAS.ERM.en) contains the English‑language error message
+* [`PPAS.ERM.en`](PPAS.ERM.en) contains the English‑language error‑message
   file translation appropriate for both versions.
   * For *both* **DOS** and **CP/M‑86**, overwrite `PPAS.ERM` with
     `PPAS.ERM.en`.
