@@ -49,5 +49,4 @@
 | [`ENGLISH.TXT`](ENGLISH.TXT) | Expanded English‑language decompiled error message file |
 
 The `311.EN` file has been recompiled using the `erm` utility to create the
-[`../PPAS.ERM.en`](../PPAS.ERM.en) compiled error message file in the root
-of the repository.
+[`../PPAS.ERM.en`](../PPAS.ERM.en) error message file in the repository root.
