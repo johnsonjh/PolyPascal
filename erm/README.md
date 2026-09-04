@@ -11,12 +11,11 @@
 
 ## Notes
 
-* Macro letters `I`, `J`, and `M` are reserved and cannot be used (as these
-  represent `<TAB>`, `<LF>`, and `<CR>` characters.  `Z` is surely reserved as
-  well (representing CP/M `<EOF>`).  The `erm` utility detects attempts to use
-  these names are outputs a prominent warning.  If they are used, the resulting
-  compiled error message file is misread by PolyPascal, causing incorrect
-  messages to be displayed.
+* Macro letters `I`, `J`, `M`, and `Z` are reserved and cannot be used (as
+  these represent `<TAB>`, `<LF>`, `<CR>`, and `<EOF>`.  The `erm` utility
+  detects attempts to use these names are outputs a warning message.  If
+  these names are used, the resulting compiled error message file is
+  parsed incorrectly by PolyPascal, causing incorrect messages to be displayed.
 
 * It is currently **unknown** if all **22** macros can be used (as the shipping
   error message files never use macro `Y`), or if the limit is **21**.  It is
