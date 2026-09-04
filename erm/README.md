@@ -13,15 +13,16 @@
 
 * Macro letters `I`, `J`, and `M` are reserved and cannot be used (as these
   represent `<TAB>`, `<LF>`, and `<CR>` characters.  `Z` is surely reserved as
-  well (representing CP/M `<EOF>`).  The `erm` utility currently **will**
-  accept these, but when used the resulting compiled error message file is
-  misread by PolyPascal, causing incorrect messages to be displayed.
+  well (representing CP/M `<EOF>`).  The `erm` utility detects attempts to use
+  these names are outputs a prominent warning.  If they are used, the resulting
+  compiled error message file is misread by PolyPascal, causing incorrect
+  messages to be displayed.
 
-* It is currently **unknown** if **22** macros can be used (the shipping
+* It is currently **unknown** if all **22** macros can be used (as the shipping
   error message files never use macro `Y`), or if the limit is **21**.  It is
   also **unknown** if compiled error message files can safely exceed
-  **1920 bytes**.  Neither of these limitations were a problem when producing
-  the English‑language translation.
+  **1920 bytes**.  Neither of these potential limitations were a problem when
+  producing the English‑language translation.
 
 * The original PolyPascal‑86 V3.11 Danish‑languge CP/M‑86 error message file
   contains a typo! It has an extra `1` in error #41.  This was most likely

@@ -24,7 +24,7 @@
 
 /******************************************************************************/
 
-#define VERSION "1.1"
+#define VERSION "1.2"
 
 /******************************************************************************/
 
@@ -263,6 +263,12 @@ pack (const char * in_filename, const char * out_filename)
 
           if (m >= 'A' && m <= 'Z')
             {
+              if (m == 'I' || m == 'J' || m == 'M' || m == 'Z')
+                {
+                  (void)fprintf (stderr,
+                                 "WARN: Macro name '&%c' is reserved!\n", m);
+                }
+
               (void)fputc (m - 'A' + 1, fout);
 
               for (i = 0; str [i]; i++)
