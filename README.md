@@ -101,17 +101,17 @@
 * See the [`erm/`](erm) directory for information on the tools developed
   to facilitate the translation.
 
+## Extras
+
+* The [`PPAS_T3/`](PPAS_T3) directory contains the source code for a program
+  to convert PolyPascal‑86 programs so the `UPGRADE` utility shipped with
+  Borland Turbo Pascal 4.0 for DOS can successfully process them, and a copy
+  of the PolyPascal‑86 Turtlegraphics Package for the IBM PC.
+
 ## Availability
 
 * [GitHub](https://github.com/johnsonjh/PolyPascal)
 * [GitLab](https://gitlab.com/johnsonjh/polypascal)
-
-## See also
-
-* The [`PPAS_T3/`](PPAS_T3) contains the source code for a program to convert
-  PolyPascal‑86 programs so the `UPGRADE` utility shipped with Borland Turbo
-  Pascal 4.0 for DOS can successfully process them, and a copy of the
-  PolyPascal‑86 Turtlegraphics Package for the IBM PC.
 
 ## License
 
