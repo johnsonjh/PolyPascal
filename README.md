@@ -7,6 +7,8 @@
 * See
   [https://datamuseum.dk/wiki/PolyPascal](https://datamuseum.dk/wiki/PolyPascal)
   for additional PolyPascal information.
+* [PDF documentation](https://rc700.dk/files/documentation/PICCOLINE_PolyPascal_Brugervejledning_1985.pdf)
+  is available (in Danish).
 
 ## Notes
 
