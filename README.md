@@ -101,6 +101,12 @@
 * See the [`erm/`](erm) directory for more information on the tools developed
   to produce the English‑language translation.
 
+## See also
+
+* [`PPAS_T3`](https://datamuseum.dk/wiki/Bits:30008413) is an MS‑DOS program
+  to convert PolyPascal‑86 programs so the `UPGRADE` utility shipped with
+  Borland Turbo Pascal 4.0 can successfully process them.
+
 ## License
 
 * This software is provided for the purposes of historical research
