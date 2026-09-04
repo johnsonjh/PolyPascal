@@ -38,12 +38,12 @@
 
 ## Translation
 
-| File          | Description                                             |
-|--------------:|:--------------------------------------------------------|
-| `311.DK`      | Decompiled Danish‑language error message file           |
-| `DANISH.TXT`  | Expanded Danish‑language decompiled error message file  |
-| `311.EN`      | Decompiled English‑languge error message file           |
-| `ENGLISH.TXT` | Expanded English‑language decompiled error message file |
+| File | Description |
+|-----:|:------------|
+| [`311.DK`](311.DK) | Decompiled Danish‑language error message file |
+| [`DANISH.TXT`](DANISH.TXT) | Expanded Danish‑language decompiled error message file |
+| [`311.EN`](311.EN) | Decompiled English‑languge error message file |
+| [`ENGLISH.TXT`](ENGLISH.TXT) | Expanded English‑language decompiled error message file |
 
 The `311.EN` file has been recompiled using `erm` utility to create the
 [`../PPAS.ERM.en`](../PPAS.ERM.en) compiled error message file in the root of
