@@ -98,8 +98,8 @@
 
 ### Translation tools
 
-* See the [`erm/`](erm) directory for more information on the tools developed
-  to produce the English‑language translation.
+* See the [`erm/`](erm) directory for information on the tools developed
+  to facilitate the translation.
 
 ## See also
 
