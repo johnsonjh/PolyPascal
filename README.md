@@ -1,9 +1,9 @@
-# PolyPascal-86 V3.11 for DOS and CP/M-86
+# PolyPascal‑86 V3.11 for DOS and CP/M‑86
 
 ## Overview
 
-* This is an English translation of **PolyPascal-86 V3.11** for
-  DOS and CP/M-86.
+* This is an English translation of **PolyPascal‑86 V3.11** for
+  DOS and CP/M‑86.
 * See
   [https://datamuseum.dk/wiki/PolyPascal](https://datamuseum.dk/wiki/PolyPascal)
   for additional PolyPascal information.
@@ -13,17 +13,17 @@
 ## Notes
 
 * The [`fetch.sh`](fetch.sh) script was used to create the
-  [`PPCPM`](PPCPM) (CP/M-86) and [`PPDOS`](PPDOS) (DOS) directories.
+  [`PPCPM`](PPCPM) (CP/M‑86) and [`PPDOS`](PPDOS) (DOS) directories.
 * It is provided for reference purposes, and it should not be necessary
   to run it again.
 
 ## Configuration
 
-* Use `emu2-cpm86` (available from
+* If you are using a UNIX‑like system, `emu2‑cpm86` (available from
   [GitLab](https://gitlab.com/johnsonjh/emu2-cpm86)
   or [GitHub](https://github.com/johnsonjh/emu2-cpm86))
-  to run the `INSTALL.CMD` and `INSTALL.COM` programs to configure
-  PolyPascal-86 for your system:
+  can be used to run the `INSTALL.CMD` and `INSTALL.COM` programs to
+  configure PolyPascal‑86 for your system:
 
   ```
                 PolyPascal-86 V3.11 Install Program
@@ -31,14 +31,7 @@
 
                         Copyright (C) 1985
                      PolyData MicroCenter A/S
-
-
-  This  program is used to view and modify the adjustable parts  of
-  PolyPascal.  If your copy of PolyPascal is unconfigured, then be-
-  fore you can use it,  you must install it using this program.  If
-  your copy is already set up for a specific computer system, there
-  is no need to run this program,  unless you wish to make personal
-  adjustments.
+  [ ... ]
 
   Input file name (RETURN for PPAS.CMD)? <PPAS.CMD>
 
@@ -72,7 +65,7 @@
   Save configuration in PPAS.CMD (YES/NO)? <YES>
   ```
 
-* Most users will want to use `A` (PC-DOS), `B` (CP/M-86), or `C` (ANSI).
+* Most users will want to use `A` (PC‑DOS), `B` (CP/M‑86), or `C` (ANSI).
 
 * Repeat the above process to configure all three executables
   (`CMD` and `COM`) in each version:
@@ -83,24 +76,30 @@
   | `PPBS.COM`&nbsp;/&nbsp;`PPBS.CMD` | BCD versions        |
   | `PP87.COM`&nbsp;/&nbsp;`PP86.CMD` | 8087 NDP versions   |
 
+* The PolyPascal‑86 software as provided is unmodified; see the instructions
+  below to install the English‑language translation files.
+
 ## Translation
 
 ### Help text
 
-* The [`PPAS.HLP.en`](PPAS.HLP.en) file is an English
-  help translation appropriate for both versions.
-  * For DOS, overwrite `PPAS.HLP` with `PPAS.HLP.en`.
-  * For CP/M-86, overwrite both `PPASRC.HLP` and `PPAS.HLP` with
+* [`PPAS.HLP.en`](PPAS.HLP.en) contains the English‑language help translation
+  appropriate for both versions.
+  * For **DOS**, overwrite `PPAS.HLP` with `PPAS.HLP.en`.
+  * For **CP/M‑86**, overwrite *both* `PPASRC.HLP` and `PPAS.HLP` with
     `PPAS.HLP.en`.
 
 ### Error messages
 
-* The [`PPAS.ERM.en`](PPAS.ERM.en) file is an error message
-  translation appropriate for both versions.
-  * For both DOS and CP/M-86, overwrite `PPAS.ERM` with
+* [`PPAS.ERM.en`](PPAS.ERM.en) contains the English‑language error message
+  file translation appropriate for both versions.
+  * For *both* **DOS** and **CP/M‑86**, overwrite `PPAS.ERM` with
     `PPAS.ERM.en`.
-* See the [`erm/`](erm) directory for more details and current
-  translation status.
+
+### Translation tools
+
+* See the [`erm/`](erm) directory for more information on the tools developed
+  to produce the English‑language translation.
 
 ## License
 

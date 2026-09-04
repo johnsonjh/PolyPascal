@@ -2,37 +2,30 @@
 
 ## Overview
 
-* **ERM** is a utility to decompile and recompile the PolyPascal-86
-  V3.11 error message files (`PPAS.ERM`).
-* It has been verified to produce byte-exact round-trip results when
-  decompiling and then recompiling the shipping Danish-language files.
-* The **ERM** utility is built from a single file ([`erm.c`](erm.c)) and
-  is written in strict ANSI C89 for maximum compatibility.
-* It also works (and can be debugged) using the excellent
-  [SoftIntegration Ch](https://softintegration.com/) C interpreter.
+* **ERM** is a utility to decompile and recompile the PolyPascal‑86
+  V3.11 error message files (`PPAS.ERM`).  It has been verified to produce
+  byte‑exact round‑trip results when decompiling and then recompiling the
+  shipping Danish‑language files.
+* The `ermexpand` utility expand all macros in the *unpacked* error message
+  file for verification or ease of translation.
 
 ## Notes
 
-* The [`.stash/310.TXT`](.stash/310.TXT) file is an English-language
-  PolyPascal-80 V3.10 error message file that has been decompiled to the
-  same format as that which **ERM** produces.
-* This file is for **REFERENCE ONLY**.  It is **NOT** compatible with
-  PolyPascal-86 V3.11 and is included in the repository only to aid in the
-  Danish to English translation work.
-[]()
+* Macro letters `I`, `J`, and `M` are reserved and cannot be used (as these
+  represent `<TAB>`, `<LF>`, and `<CR>` characters.  The `erm` utility
+  currently **will** accept them, but if you use those letters, the resulting
+  compiled error message file is misparsed by PolyPascal, causing incorrect
+  messages to be displayed.
 
-[]()
-* The PolyPascal-80 V3.10 file defines **17** macros and **99** error
-  messages.
-* The PolyPascal-86 V3.11 file defines **21** macros and **102** error
-  messages.
+* It is currently **unknown** if more than **21** macros can be used, or if
+  compiled error message files can exceed **1920 bytes**.  These limitations
+  were not a problem for the English translation.
 
-## Trivia
-
-* The PolyPascal-86 V3.11 CP/M-86 error message file contains a typo! It has
-  an extra `1` in error #41.  This was most likely caused by editing the file
-  in a WordStar-pattern editor in **1985**.  This typo was fixed in the
-  PolyPascal-86 V3.11 DOS version (which is dated **1986**):
+* The original PolyPascal‑86 V3.11 Danish‑languge CP/M‑86 error message file
+  contains a typo! It has an extra `1` in error #41.  This was most likely
+  caused by editing the file in a WordStar‑pattern editor back in **1985**.
+  This typo was fixed in the PolyPascal‑86 V3.11 DOS version (which is
+  dated **1986**):
   ```diff
   --- cpm.txt	1985-01-01 01:00:00.000000000 -0000
   +++ dos.txt	1986-01-01 01:00:00.000000000 -0000
@@ -45,14 +38,13 @@
 
 ## Translation
 
-### Verification
+| File          | Description                                             |
+|--------------:|:--------------------------------------------------------|
+| `311.DK`      | Decompiled Danish‑language error message file           |
+| `DANISH.TXT`  | Expanded Danish‑language decompiled error message file  |
+| `311.EN`      | Decompiled English‑languge error message file           |
+| `ENGLISH.TXT` | Expanded English‑language decompiled error message file |
 
-* The `ermexpand` utility expand all macros in an *unpacked* error message file
-  for verification.  You can run `./ermexpand 311.EN` (or `./ermexpand 311.EN`)
-  to see the expanded output (or redirect it a file for further review).
-
-### Results
-
-* The [`311.DK`](311.DK) file is the unpacked original Danish, and
-  the [`311.EN`](311.EN) file is the unpacked English translation used to
-  create the [`../PPAS.ERM.en`](../PPAS.ERM.en) error message file using **ERM**.
+The `311.EN` file has been recompiled using `erm` utility to create the
+[`../PPAS.ERM.en`](../PPAS.ERM.en) compiled error message file in the root of
+the repository.
