@@ -101,6 +101,11 @@
 * See the [`erm/`](erm) directory for information on the tools developed
   to facilitate the translation.
 
+## Availability
+
+* [GitHub](https://github.com/johnsonjh/PolyPascal)
+* [GitLab](https://gitlab.com/johnsonjh/polypascal)
+
 ## See also
 
 * [`PPAS_T3`](https://datamuseum.dk/wiki/Bits:30008413) is an MS‑DOS program
